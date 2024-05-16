@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
     foreignKeys = [
         ForeignKey(
             entity = CategoryEntity::class,
-            parentColumns = ["name"],
+            parentColumns = ["key"],
             childColumns = ["category"]
         )
     ]
