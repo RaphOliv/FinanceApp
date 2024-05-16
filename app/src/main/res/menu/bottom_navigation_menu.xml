@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:id="@+id/homeIcon"
+    android:icon="@drawable/home_icon"
+    android:title="Home" />
+
+    <item android:id="@+id/listaIcon"
+        android:icon="@drawable/lista_icon"
+        android:title="List" />
+
+    <item android:id="@+id/graficIcon"
+        android:icon="@drawable/group_8"
+        android:title="Grafic" />
+
+    <item android:id="@+id/profileIcon"
+        android:icon="@drawable/profile_icon"
+        android:title="Profile" />
+</menu>

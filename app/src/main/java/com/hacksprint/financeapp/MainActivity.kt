@@ -5,12 +5,46 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
+private lateinit var bottomNavigation: BottomNavigationView
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+
         setContentView(R.layout.activity_main)
 
+        bottomNavigation = findViewById(R.id.bottom_navigation)
+        bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.homeIcon -> {
+                    replaceFragment(HomeFragment())
+                    true
+                }
+
+                R.id.listaIcon -> {
+                    replaceFragment(ListaFragment())
+                    true
+                }
+
+                R.id.graficIcon -> {
+                    replaceFragment(GraficFragment())
+                    true
+                }
+
+                R.id.profileIcon -> {
+
+                    replaceFragment(ProfileFragment())
+                    true
+                }
+
+                else -> false
+
+            }
+        }
+    }
+    private fun  replaceFragment(fragment: Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.frame, fragment).commit()
     }
 }
