@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/All"
+    android:title="All" />
+
+    <item android:id="@+id/casa"
+        android:title="casa" />
+
+    <item android:id="@+id/luz"
+        android:title="Luz" />
+
+    <item android:id="@+id/internet"
+        android:title="internet" />
+</menu>

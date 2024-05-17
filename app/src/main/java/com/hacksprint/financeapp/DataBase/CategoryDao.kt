@@ -1,4 +1,4 @@
-package com.hacksprint.financeapp
+package com.hacksprint.financeapp.DataBase
 
 import androidx.room.Dao
 import androidx.room.Delete

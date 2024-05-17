@@ -3,6 +3,7 @@ package com.hacksprint.financeapp
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.hacksprint.financeapp.DataBase.CategoryEntity
 
 @Entity(
     foreignKeys = [
