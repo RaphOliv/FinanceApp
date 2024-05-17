@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId = "com.hacksprint.financeapp"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -41,6 +41,7 @@ android {
 }
 dependencies {
 
+    implementation(libs.androidx.room.common)
     val room_version = "2.6.1"
 
     implementation("androidx.room:room-runtime:$room_version")

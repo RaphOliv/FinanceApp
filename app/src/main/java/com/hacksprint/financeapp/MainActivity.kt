@@ -43,7 +43,12 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+
+    if (savedInstanceState == null) {
+        replaceFragment(HomeFragment())
+        bottomNavigation.selectedItemId = R.id.homeIcon
     }
+}
     private fun  replaceFragment(fragment: Fragment){
         supportFragmentManager.beginTransaction().replace(R.id.frame, fragment).commit()
     }
