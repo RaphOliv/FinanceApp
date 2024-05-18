@@ -16,4 +16,5 @@ class FrameLayoutFragment(@LayoutRes private val layoutRes: Int): Fragment() {
     ): View? {
         return inflater.inflate(layoutRes, container, false)
     }
+
 }
