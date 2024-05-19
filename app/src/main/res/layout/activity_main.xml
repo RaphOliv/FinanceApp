@@ -27,10 +27,10 @@
             android:layout_marginTop="8dp"
             android:background="@drawable/background_bottom"
             android:padding="5dp"
-            app:itemActiveIndicatorStyle="@color/blue"
+            app:itemActiveIndicatorStyle="@color/black"
             app:itemBackground="@drawable/navigation_item_background"
-            app:itemIconTint="@color/blue"
-            app:itemTextColor="@color/blue"
+            app:itemIconTint="@color/black"
+            app:itemTextColor="@color/black"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_navigation_menu" />
 

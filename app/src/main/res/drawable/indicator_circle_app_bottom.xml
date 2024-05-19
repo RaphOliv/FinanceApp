@@ -5,7 +5,7 @@
     <shape android:shape="rectangle">
         <corners android:radius="360dp" />
         <solid android:color="#FFFFFF" />
-        <size android:width="41dp" android:height="41dp"/>
+        <size android:width="20dp" android:height="20dp"/>
     </shape>
     </item>
 </ripple>

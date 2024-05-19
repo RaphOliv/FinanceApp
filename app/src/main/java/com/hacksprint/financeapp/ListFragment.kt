@@ -13,7 +13,7 @@ class ListFragment: Fragment() {
 
     private var rvCategory: RecyclerView? = null
     private var rvExpenses: RecyclerView? = null
-    private lateinit var openBottomSheetButton: ImageView
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,14 +25,16 @@ class ListFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvCategory = view.findViewById<RecyclerView>(R.id.rv_categories)
-        rvExpenses = view.findViewById<RecyclerView>(R.id.rv_expenses)
+        rvCategory = view.findViewById(R.id.rv_categories)
+        rvExpenses = view.findViewById(R.id.rv_expenses)
 
-openBottomSheetButton.findViewById<ImageView>(R.id.btn_add_categorie)
+        val openBottomSheetButton = view.findViewById<ImageView>(R.id.btn_add_categorie)
+
         openBottomSheetButton.setOnClickListener {
             val bottomSheetFragment = DielogList()
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
         }
+
     }
 
     override fun onResume() {

@@ -2,21 +2,28 @@ package com.hacksprint.financeapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.startActivity
+import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 
 class Presentation: AppCompatActivity() {
     private lateinit var indicator: LinearLayout
+    private lateinit var skip: Button
+    private lateinit var btnNext: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.presentation)
 
+
         val viewPager: ViewPager2 = findViewById(R.id.vp_presentation)
         indicator = findViewById(R.id.indicator_presentation)
+        skip = findViewById(R.id.btn_presentation_skip)
+        btnNext = findViewById(R.id.btn_presentation)
 
         //configura o viewpager2 com o adapter
         val adapter = AdapterFrame(this)
@@ -27,9 +34,20 @@ class Presentation: AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 updateIndicator(position)
+
+                if (position == adapter.itemCount - 1) {
+                    skip.visibility = View.INVISIBLE
+                    indicator.visibility = View.INVISIBLE
+                    btnNext.text = "Salvar"
+                }else if(position ==3){
+                    btnNext.text = "Iniciar"
+                } else {
+                    skip.visibility = View.VISIBLE
+                }
             }
+
         })
-        val btnNext = findViewById<Button>(R.id.btn_presentation)
+
 
 
         btnNext.setOnClickListener{
@@ -43,6 +61,7 @@ class Presentation: AppCompatActivity() {
                 viewPager.setCurrentItem(currentItem + 1, true)
             }
         }
+
         val numPages = adapter.itemCount
         for (i in 0 until numPages) {
             val circleIndicator = ImageView(this)

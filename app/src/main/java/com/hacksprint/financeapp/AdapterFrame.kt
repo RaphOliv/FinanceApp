@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutionException
 class AdapterFrame (fragmentActivity: FragmentActivity):FragmentStateAdapter(fragmentActivity) {
 
     override fun getItemCount(): Int {
-        return 4
+        return 5
     }
 
     override fun createFragment(position: Int): Fragment {
@@ -17,6 +17,7 @@ class AdapterFrame (fragmentActivity: FragmentActivity):FragmentStateAdapter(fra
             1 -> FrameLayoutFragment(R.layout.frame_img2)
             2 -> FrameLayoutFragment(R.layout.frame_img_3)
             3 -> FrameLayoutFragment(R.layout.frame_img4)
+            4 -> FrameLayoutFragment(R.layout.create_profile)
 
 
             else -> throw IllegalArgumentException("invalido,$position")

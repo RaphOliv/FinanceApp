@@ -4,6 +4,7 @@
     android:layout_width="210dp"
     android:layout_height="106dp"
     app:cardCornerRadius="20dp"
+    android:backgroundTint="#E9E9E9"
     android:padding="4dp">
 
 <TextView
