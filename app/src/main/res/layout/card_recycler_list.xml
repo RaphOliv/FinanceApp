@@ -7,8 +7,8 @@
     android:padding="2dp">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="371dp"
-        android:layout_height="65dp"
+        android:layout_width="301dp"
+        android:layout_height="68dp"
         android:backgroundTint="#E9E9E9"
         android:foreground="?android:selectableItemBackground"
         app:cardCornerRadius="10dp"
@@ -22,10 +22,10 @@
 
         <ImageView
             android:id="@+id/iv_category"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
             android:contentDescription="@null"
             android:src="@drawable/ic_home" />
 
@@ -33,7 +33,7 @@
             android:id="@+id/tv_category_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="65dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="8dp"
             android:text="HOME"
             android:textSize="8dp"
@@ -43,8 +43,9 @@
             android:id="@+id/tv_expense_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="65dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="18dp"
+            android:textColor="@color/black"
             android:text="Fatura Mensal"
             android:textSize="16dp"
             android:textStyle="bold" />
@@ -53,49 +54,49 @@
             android:id="@+id/tv_value_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="65dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="45dp"
             android:layout_marginBottom="8dp"
             android:text="Valor:"
-            android:textSize="12dp"
+            android:textSize="10dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_value_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="105dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="90dp"
+            android:layout_marginTop="45dp"
             android:text="R$ 1000,00"
-            android:textSize="12dp"
+            android:textSize="10dp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="185dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="160dp"
+            android:layout_marginTop="45dp"
             android:text="Vencimento:"
-            android:textSize="12dp"
+            android:textSize="10sp"
             android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_value_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="265dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="230dp"
+            android:layout_marginTop="45dp"
             android:layout_marginEnd="8dp"
             android:text="10/10/2021"
-            android:textSize="12dp"
+            android:textSize="10dp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/iv_status"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginStart="320dp"
+            android:layout_marginStart="270dp"
             android:layout_marginTop="8dp"
             android:contentDescription="@null"
             android:src="@drawable/baseline_circle_green_24" />

@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.FinanceApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">#D7E1F9</item>
+        <item name="colorPrimary">#2F2F2F</item>
     </style>
 
     <style name="Theme.FinanceApp" parent="Base.Theme.FinanceApp" />
