@@ -1,0 +1,4 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    <color android:name="customColor1">@color/black</color>
+    <color android:name="customColor2">#00FF00</color>
+</resources>
