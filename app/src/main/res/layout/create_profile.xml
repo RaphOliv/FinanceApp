@@ -38,7 +38,6 @@
         android:layout_marginStart="30dp"
         android:layout_marginEnd="30dp"
        android:layout_marginTop="60dp"
-        android:background="@drawable/add_shape_list"
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +47,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/name_profile"
+            android:background="@drawable/add_shape_list"
+            android:backgroundTint="@color/blue"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Qual o seu nome? "
@@ -60,7 +61,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:textColorHint="@color/black"
         android:id="@+id/valor_mensal_profile"
-        android:background="@drawable/add_shape_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -74,6 +74,8 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/val_mes"
+            android:backgroundTint="@color/blue"
+            android:background="@drawable/add_shape_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Qual o valor mensal obtem ao mes?"

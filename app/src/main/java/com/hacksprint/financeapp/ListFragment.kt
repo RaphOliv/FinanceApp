@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class ListFragment: Fragment() {
@@ -31,8 +32,13 @@ class ListFragment: Fragment() {
         val openBottomSheetButton = view.findViewById<ImageView>(R.id.btn_add_categorie)
 
         openBottomSheetButton.setOnClickListener {
+
             val bottomSheetFragment = DielogList()
+
             bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
+
+
+
         }
 
     }
