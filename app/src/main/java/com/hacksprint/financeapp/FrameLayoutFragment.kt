@@ -7,7 +7,8 @@ import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 
-class FrameLayoutFragment(@LayoutRes private val layoutRes: Int): Fragment() {
+class FrameLayoutFragment(@LayoutRes private val layoutRes: Int): Fragment(
+    layoutRes) {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -16,5 +17,7 @@ class FrameLayoutFragment(@LayoutRes private val layoutRes: Int): Fragment() {
     ): View? {
         return inflater.inflate(layoutRes, container, false)
     }
+
+
 
 }

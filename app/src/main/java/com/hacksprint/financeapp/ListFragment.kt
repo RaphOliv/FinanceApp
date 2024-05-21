@@ -7,10 +7,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.hacksprint.financeapp.DataBase.CategoryUiData
 
-class ListFragment: Fragment() {
+class ListFragment : Fragment() {
 
     private var rvCategory: RecyclerView? = null
     private var rvExpenses: RecyclerView? = null
@@ -29,24 +28,32 @@ class ListFragment: Fragment() {
         rvCategory = view.findViewById(R.id.rv_categories)
         rvExpenses = view.findViewById(R.id.rv_expenses)
 
-        val openBottomSheetButton = view.findViewById<ImageView>(R.id.btn_add_categorie)
+        val openBottomSheetButton = view.findViewById<ImageView>(R.id.btn_add_category)
 
         openBottomSheetButton.setOnClickListener {
+            val bottomSheetFragment = CreateCategoryBottomSheet(
+                onCreateClicked = { category ->
+                    val categoryListAdapter = rvCategory?.adapter as? CategoryListAdapter
+                    categoryListAdapter?.submitList(
+                        categoryListAdapter.currentList.toMutableList().apply {
+                            add(CategoryUiData(category))
+                        }
+                    )
 
-            val bottomSheetFragment = DielogList()
-
-            bottomSheetFragment.show(parentFragmentManager, bottomSheetFragment.tag)
-
-
+                }
+            )
+            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
 
         }
+    }
+
+    private fun CategoryUiData(name: String): CategoryUiData {
+        return CategoryUiData(name)
 
     }
 
     override fun onResume() {
         super.onResume()
-
-
 
         val categoryListAdapter = CategoryListAdapter()
 

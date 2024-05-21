@@ -13,11 +13,20 @@ interface ExpenseDao {
     fun getAll(): List<ExpenseEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(expenseEntity: List<ExpenseEntity>)
+    fun insertAll(expenseEntity: List<ExpenseEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insert(expenseEntity: ExpenseEntity)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(expenseEntity: ExpenseEntity)
 
     @Delete
     fun delete(expenseEntity: ExpenseEntity)
+
+    @Query("Select * FROM expenseentity where category is :categoryName" )
+    fun getAllByCategoryName(categoryName: String): List<ExpenseEntity>
+
+    @Delete
+    fun deleteAll(expenseEntity: List<ExpenseEntity>)
 }

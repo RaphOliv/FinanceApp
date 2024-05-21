@@ -7,7 +7,7 @@
     tools:context=".ListFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/btn_add_categorie"
+        android:id="@+id/btn_add_category"
         android:layout_width="110dp"
         android:layout_height="35dp"
         android:layout_marginTop="40dp"
@@ -29,27 +29,27 @@
         android:textColor="@color/blue"
         android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_add_categorie"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_add_category"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.043"
-        app:layout_constraintStart_toStartOf="@+id/btn_add_categorie"
-        app:layout_constraintTop_toTopOf="@+id/btn_add_categorie"
+        app:layout_constraintStart_toStartOf="@+id/btn_add_category"
+        app:layout_constraintTop_toTopOf="@+id/btn_add_category"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:layout_width="69dp"
         android:layout_height="19dp"
         android:layout_marginStart="21dp"
-        android:text="Add Categorie"
         android:textAlignment="center"
+        android:text="Add Category"
         android:textColor="@color/blue"
         android:textSize="10sp"
         android:layout_marginEnd="5dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView7"
-        app:layout_constraintEnd_toEndOf="@+id/btn_add_categorie"
+        app:layout_constraintEnd_toEndOf="@+id/btn_add_category"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/btn_add_categorie"
+        app:layout_constraintStart_toEndOf="@+id/btn_add_category"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toTopOf="@+id/textView7"
         app:layout_constraintVertical_bias="0.666" />

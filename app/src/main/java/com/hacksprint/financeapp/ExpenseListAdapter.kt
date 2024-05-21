@@ -26,6 +26,7 @@ class ExpenseListAdapter :
     override fun onBindViewHolder(holder: ExpenseViewHolder, position: Int) {
         val category = getItem(position)
         holder.bind(category, callBack)
+
     }
 
     class ExpenseViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
@@ -36,12 +37,12 @@ class ExpenseListAdapter :
         private val tv_value_date = view.findViewById<TextView>(R.id.tv_value_date)
         private val iv_status = view.findViewById<ImageView>(R.id.iv_status)
         fun bind(expense: ExpenseUiData, callBack: (ExpenseUiData) -> Unit) {
-            ivCategory.setImageResource(expense.icon)
+           /* ivCategory.setImageResource(expense.icon)*/
             tvCategoryName.text = expense.category
-            tvExpenseName.text = expense.name
+            tvExpenseName.text = expense.description
             tv_value_amount.text = expense.amount.toString()
             tv_value_date.text = expense.date
-            iv_status.setImageResource(expense.status)
+            /*iv_status.setImageResource(expense.status)*/
 
             view.setOnClickListener {
                 callBack.invoke(expense)
@@ -55,7 +56,9 @@ class ExpenseListAdapter :
         }
 
         override fun areContentsTheSame(oldItem: ExpenseUiData, newItem: ExpenseUiData): Boolean {
-            return oldItem.name == newItem.name
+            return oldItem.description == newItem.description
+                    && oldItem.amount == newItem.amount
+                    && oldItem.date == newItem.date
                     && oldItem.category == newItem.category
 
         }

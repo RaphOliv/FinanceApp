@@ -3,9 +3,8 @@ package com.hacksprint.financeapp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import java.util.concurrent.ExecutionException
 
-class AdapterFrame (fragmentActivity: FragmentActivity):FragmentStateAdapter(fragmentActivity) {
+class FrameAdapter (fragmentActivity: FragmentActivity):FragmentStateAdapter(fragmentActivity) {
 
     override fun getItemCount(): Int {
         return 5

@@ -10,7 +10,7 @@ import com.hacksprint.financeapp.DataBase.CategoryEntity
         ForeignKey(
             entity = CategoryEntity::class,
             parentColumns = ["key"],
-            childColumns = ["category"]
+            childColumns = ["category"],
         )
     ]
 )
@@ -19,5 +19,6 @@ data class ExpenseEntity(
     val id: Long = 0,
     val amount: Double,
     val category: String,
-    val description: String
+    val description: String,
+    val date: Long
 )

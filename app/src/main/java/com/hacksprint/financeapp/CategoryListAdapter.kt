@@ -34,7 +34,6 @@ class CategoryListAdapter :
         holder.bind(category, onClick, onLongClick)
     }
 
-
     class CategoryViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val tvCategory = view.findViewById<TextView>(R.id.tv_category)
         fun bind(

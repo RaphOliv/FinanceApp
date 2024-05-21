@@ -7,8 +7,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
-import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 
 class Presentation: AppCompatActivity() {
@@ -26,7 +24,7 @@ class Presentation: AppCompatActivity() {
         btnNext = findViewById(R.id.btn_presentation)
 
         //configura o viewpager2 com o adapter
-        val adapter = AdapterFrame(this)
+        val adapter = FrameAdapter(this)
         viewPager.adapter = adapter
 
         //registra as mudaças de tela dos fragments

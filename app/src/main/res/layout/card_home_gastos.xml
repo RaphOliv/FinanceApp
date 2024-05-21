@@ -12,7 +12,7 @@
     android:layout_marginTop="15dp"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Suas despesas mensais"
+    android:text="Total despesas mensais"
     android:textSize="11sp"
     android:textStyle="normal"
     android:textColor="@color/black"/>
