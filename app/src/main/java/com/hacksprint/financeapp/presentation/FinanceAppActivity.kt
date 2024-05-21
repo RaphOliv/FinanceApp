@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.hacksprint.financeapp.CategoryUiData
+import com.hacksprint.financeapp.presentation.CategoryUiData
 import com.hacksprint.financeapp.CreateCategoryBottomSheet
 import com.hacksprint.financeapp.CreateOrUpdateExpenseBottomSheet
 import com.hacksprint.financeapp.InfoBottomSheet

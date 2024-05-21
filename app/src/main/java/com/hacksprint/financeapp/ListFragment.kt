@@ -8,6 +8,7 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.hacksprint.financeapp.presentation.CategoryListAdapter
+import com.hacksprint.financeapp.presentation.CategoryUiData
 import com.hacksprint.financeapp.presentation.ExpenseListAdapter
 
 class ListFragment : Fragment() {
