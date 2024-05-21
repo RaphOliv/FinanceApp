@@ -12,8 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
-import com.hacksprint.financeapp.DataBase.CategoryEntity
-import com.hacksprint.financeapp.DataBase.ExpenseUiData
+import com.hacksprint.financeapp.data.CategoryEntity
+import com.hacksprint.financeapp.presentation.ExpenseUiData
 
 class CreateOrUpdateExpenseBottomSheet(
     private val categoryList: List<CategoryEntity>,

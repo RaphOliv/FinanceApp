@@ -1,4 +1,4 @@
-package com.hacksprint.financeapp.DataBase
+package com.hacksprint.financeapp.data
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
