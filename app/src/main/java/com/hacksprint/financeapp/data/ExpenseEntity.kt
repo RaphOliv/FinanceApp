@@ -1,9 +1,8 @@
-package com.hacksprint.financeapp.DataBase
+package com.hacksprint.financeapp.data
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
-import com.hacksprint.financeapp.DataBase.CategoryEntity
 
 @Entity(
     foreignKeys = [

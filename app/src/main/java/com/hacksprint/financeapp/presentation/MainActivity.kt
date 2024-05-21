@@ -1,8 +1,13 @@
-package com.hacksprint.financeapp
+package com.hacksprint.financeapp.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.hacksprint.financeapp.GraficFragment
+import com.hacksprint.financeapp.HomeFragment
+import com.hacksprint.financeapp.ListFragment
+import com.hacksprint.financeapp.ProfileFragment
+import com.hacksprint.financeapp.R
 import com.hacksprint.financeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.hacksprint.financeapp
+package com.hacksprint.financeapp.presentation
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -10,11 +10,14 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
-import com.hacksprint.financeapp.DataBase.CategoryEntity
-import com.hacksprint.financeapp.DataBase.CategoryUiData
-import com.hacksprint.financeapp.DataBase.ExpenseEntity
-import com.hacksprint.financeapp.DataBase.ExpenseUiData
-import com.hacksprint.financeapp.DataBase.FinanceAppDataBase
+import com.hacksprint.financeapp.CategoryUiData
+import com.hacksprint.financeapp.CreateCategoryBottomSheet
+import com.hacksprint.financeapp.CreateOrUpdateExpenseBottomSheet
+import com.hacksprint.financeapp.InfoBottomSheet
+import com.hacksprint.financeapp.R
+import com.hacksprint.financeapp.data.CategoryEntity
+import com.hacksprint.financeapp.data.ExpenseEntity
+import com.hacksprint.financeapp.data.FinanceAppDataBase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.hacksprint.financeapp
+package com.hacksprint.financeapp.presentation
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.hacksprint.financeapp.FrameAdapter
+import com.hacksprint.financeapp.R
 
 class Presentation: AppCompatActivity() {
     private lateinit var indicator: LinearLayout

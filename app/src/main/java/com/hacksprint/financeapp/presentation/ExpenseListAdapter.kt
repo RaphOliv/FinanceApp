@@ -1,4 +1,4 @@
-package com.hacksprint.financeapp
+package com.hacksprint.financeapp.presentation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.hacksprint.financeapp.DataBase.ExpenseUiData
+import com.hacksprint.financeapp.R
 
 class ExpenseListAdapter :
     ListAdapter<ExpenseUiData, ExpenseListAdapter.ExpenseViewHolder>(diffCallback()) {
