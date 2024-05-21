@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
-        android:text="Criar Nova Task"
+        android:text="Criar Nova Despesa"
         android:textAlignment="center"
         android:textColor="#6991F9"
         android:textSize="20sp"
@@ -55,7 +55,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:textColorHint="@color/black"
         android:id="@+id/valor_categoria"
-        android:background="@drawable/add_shape_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
@@ -66,10 +65,12 @@
         app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:background="@drawable/add_shape_list"
+            android:backgroundTint="@color/blue"
             android:id="@+id/valor_mes"
             android:textColor="@color/black"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="Qual valor gasta a essa categoria? "
             android:textSize="13dp"
             android:inputType="numberDecimal" />
@@ -79,7 +80,6 @@
     <com.google.android.material.textfield.TextInputLayout
         android:textColorHint="@color/black"
         android:id="@+id/valor_mensal"
-        android:background="@drawable/add_shape_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
@@ -90,7 +90,8 @@
         app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:backgroundTint="@color/transparent"
+            android:backgroundTint="@color/blue"
+            android:background="@drawable/add_shape_list"
             android:id="@+id/data_vencimento"
             android:textColor="@color/black"
             android:layout_width="match_parent"
@@ -109,16 +110,16 @@
         android:layout_width="301dp"
         android:layout_height="57dp"
         android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="50dp"
+        android:backgroundTint="#2F2F2F"
         android:gravity="center"
         android:text="Salvar"
-       android:backgroundTint="#2F2F2F"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/valor_mensal"
         app:layout_constraintHorizontal_bias="0.572"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/valor_mensal"
         app:layout_constraintTop_toBottomOf="@+id/valor_mensal"
         app:layout_constraintVertical_bias="0.814" />
 

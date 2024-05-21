@@ -41,10 +41,9 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/shapeableImageView2"
         app:layout_constraintEnd_toEndOf="@+id/shapeableImageView2"
-        app:layout_constraintHorizontal_bias="0.472"
         app:layout_constraintStart_toStartOf="@+id/shapeableImageView2"
         app:layout_constraintTop_toTopOf="@+id/shapeableImageView2"
-        app:layout_constraintVertical_bias="0.485" />
+        app:layout_constraintVertical_bias="0.47" />
 
     <TextView
         android:id="@+id/textView6"
@@ -58,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/shapeableImageView"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
@@ -75,14 +74,14 @@
         app:layout_constraintHorizontal_bias="0.067"
         app:layout_constraintStart_toEndOf="@+id/shapeableImageView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.112" />
 
     <TextView
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
-        android:text="Meus Favoritos"
+        android:text="Meus Vencimentos"
         android:textColor="@color/black"
         android:textSize="15sp"
         android:textStyle="bold"
@@ -91,53 +90,53 @@
         app:layout_constraintTop_toBottomOf="@+id/shapeableImageView"
         app:layout_constraintVertical_bias="0.328" />
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView3"
-        android:layout_width="56dp"
-        android:layout_height="26dp"
-        android:background="@drawable/add_shape_list"
-        android:backgroundTint="#C1D0F5"
-        android:clickable="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView2"
-        app:layout_constraintVertical_bias="0.151" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ver tudo"
-        android:textColor="@color/blue"
-        android:textSize="9sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView3"
-        app:layout_constraintHorizontal_bias="0.571"
-        app:layout_constraintStart_toStartOf="@+id/shapeableImageView3"
-        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView2"
-        app:layout_constraintVertical_bias="0.162" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView3"
+        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView2"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/textView5"
         app:layout_constraintTop_toBottomOf="@+id/textView5"
         app:layout_constraintVertical_bias="0.306" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="210dp"
         android:layout_height="106dp"
-        tools:listitem="@layout/card_home_gastos"
         android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toTopOf="@+id/textView5"
         app:layout_constraintEnd_toStartOf="@+id/shapeableImageView2"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/shapeableImageView"
         app:layout_constraintTop_toBottomOf="@+id/shapeableImageView"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/card_home_gastos" />
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/indicator_circle_app_bottom"
+        android:backgroundTint="@color/blue"
+        android:src="@drawable/baseline_notifications_24"
+        app:layout_constraintBottom_toTopOf="@+id/shapeableImageView2"
+        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView2"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/set_name_text"
+        app:layout_constraintTop_toTopOf="@+id/textView6"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageView
+        android:layout_width="356dp"
+        android:layout_height="307dp"
+        android:src="@drawable/vazioimg2"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.449"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.77" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

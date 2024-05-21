@@ -48,7 +48,14 @@ class Presentation: AppCompatActivity() {
 
         })
 
+        skip.setOnClickListener{
+            val currentItem = viewPager.currentItem
+            val lastaitem = viewPager.adapter?.itemCount?.minus(1)
 
+            if (currentItem < lastaitem!!) {
+                viewPager.currentItem = lastaitem
+            }
+        }
 
         btnNext.setOnClickListener{
             val currentItem = viewPager.currentItem
