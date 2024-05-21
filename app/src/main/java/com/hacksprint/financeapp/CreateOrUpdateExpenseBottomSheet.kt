@@ -30,7 +30,7 @@ class CreateOrUpdateExpenseBottomSheet(
     ): View? {
         val view = inflater.inflate(R.layout.create_or_update_expense_bottom_sheet, container, false)
 
-        val tvTitle = view.findViewById<TextView>(R.id.tv_title)
+        val tvTitle = view.findViewById<TextView>(R.id.tv_expense_title)
         val etExpenseName = view.findViewById<TextInputEditText>(R.id.et_expense_name)
         val btnCreateOrUpdate = view.findViewById<Button>(R.id.btn_expense_create)
         val spinner: Spinner = view.findViewById(R.id.category_spinner)
