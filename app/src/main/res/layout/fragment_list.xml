@@ -119,14 +119,14 @@
     </LinearLayout>
 
     <ImageView
-        android:layout_width="349dp"
-        android:layout_height="327dp"
-        android:src="@drawable/vazioimg1"
+        android:layout_width="369dp"
+        android:layout_height="356dp"
+        android:src="@drawable/imglist"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.539" />
+        app:layout_constraintVertical_bias="0.552" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,8 +17,12 @@
         android:textColor="#6991F9"
         android:textSize="20sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="116dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.049" />
 
     <TextView
         android:id="@+id/textView2"
@@ -28,31 +32,43 @@
         android:textColor="@color/black"
         android:textSize="13sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="86dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.145" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="332dp"
         android:layout_height="165dp"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="195dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </LinearLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_expense_amount"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="190dp"
         android:textColorHint="@color/black"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="476dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintStart_toStartOf="@+id/ti_expense_name"
+        app:layout_constraintTop_toBottomOf="@+id/ti_expense_name"
+        app:layout_constraintVertical_bias="0.017">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_expense_amount"
-            android:layout_width="344dp"
+            android:layout_width="180dp"
             android:layout_height="51dp"
             android:background="@drawable/add_shape_list"
             android:backgroundTint="@color/blue"
@@ -60,21 +76,23 @@
             android:inputType="numberDecimal"
             android:textColor="@color/black"
             android:textSize="13dp" />
+
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_expense_name"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:textColorHint="@color/black"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="389dp">
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout1"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout1"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_expense_name"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="342dp"
+            android:layout_height="56dp"
             android:background="@drawable/add_shape_list"
             android:backgroundTint="@color/blue"
             android:hint="Expense Name: e.g. Rent."
@@ -84,44 +102,25 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
-        android:id="@+id/btn_expense_create"
-        android:layout_width="301dp"
-        android:layout_height="57dp"
-        android:backgroundTint="#2F2F2F"
-        android:gravity="center"
-        android:text="Create"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ti_expense_date"
-        app:layout_constraintVertical_bias="0.68" />
-
-    <Spinner
-        android:id="@+id/category_spinner"
-        android:layout_width="326dp"
-        android:layout_height="35dp"
-        android:background="@drawable/bg_spinner"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="126dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_expense_date"
-        android:layout_width="342dp"
-        android:layout_height="56dp"
-        android:layout_margin="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         android:textColorHint="@color/black"
-        tools:layout_editor_absoluteX="20dp"
-        tools:layout_editor_absoluteY="568dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout1"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toEndOf="@+id/ti_expense_amount"
+        app:layout_constraintTop_toBottomOf="@+id/ti_expense_name"
+        app:layout_constraintVertical_bias="0.008">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_expense_date"
-            android:layout_width="337dp"
+            android:layout_width="150dp"
             android:layout_height="53dp"
             android:background="@drawable/add_shape_list"
             android:backgroundTint="@color/blue"
@@ -133,6 +132,37 @@
             android:textColor="@color/black"
             android:textSize="13dp" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_expense_create"
+        android:layout_width="301dp"
+        android:layout_height="57dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#2F2F2F"
+        android:gravity="center"
+        android:text="Create"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.572"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ti_expense_amount"
+        app:layout_constraintVertical_bias="0.958" />
+
+    <Spinner
+        android:id="@+id/category_spinner"
+        android:layout_width="326dp"
+        android:layout_height="35dp"
+        android:background="@drawable/bg_spinner"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout1"
+        app:layout_constraintHorizontal_bias="0.826"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.872" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
