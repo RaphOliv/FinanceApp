@@ -1,23 +1,19 @@
-package com.hacksprint.financeapp
+package com.hacksprint.financeapp.Fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
+import com.hacksprint.financeapp.R
 
-class FrameLayoutFragment(@LayoutRes private val layoutRes: Int): Fragment(
-    layoutRes) {
+class ProfileFragment:Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layoutRes, container, false)
+        return layoutInflater.inflate(R.layout.fragment_profile,container,false)
     }
-
-
-
 }

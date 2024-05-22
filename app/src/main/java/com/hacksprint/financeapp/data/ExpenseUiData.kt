@@ -1,7 +1,6 @@
-package com.hacksprint.financeapp.presentation
+package com.hacksprint.financeapp.data
 
-import androidx.annotation.DrawableRes
-
+//data class para o btnDielog createOrUpdateExpenseBottomSheet
 data class ExpenseUiData(
     val id: Int,
     val description: String,

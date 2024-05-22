@@ -1,10 +1,11 @@
-package com.hacksprint.financeapp
+package com.hacksprint.financeapp.Fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.hacksprint.financeapp.R
 
 class GraficFragment: Fragment() {
 

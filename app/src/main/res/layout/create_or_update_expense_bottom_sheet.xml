@@ -35,14 +35,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout1"
+        app:layout_constraintStart_toStartOf="@+id/recyclerListIcons"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.145" />
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerListIcons"
         android:layout_width="332dp"
-        android:layout_height="165dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </LinearLayout>
+    </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/ti_expense_amount"
@@ -61,7 +61,7 @@
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.833"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ti_expense_name"
         app:layout_constraintTop_toBottomOf="@+id/ti_expense_name"
         app:layout_constraintVertical_bias="0.017">
@@ -85,9 +85,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="30dp"
         android:textColorHint="@color/black"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout1"
-        app:layout_constraintStart_toStartOf="@+id/linearLayout1"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+        app:layout_constraintEnd_toEndOf="@+id/recyclerListIcons"
+        app:layout_constraintStart_toStartOf="@+id/recyclerListIcons"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerListIcons">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_expense_name"
@@ -96,7 +96,7 @@
             android:background="@drawable/add_shape_list"
             android:backgroundTint="@color/blue"
             android:hint="Expense Name: e.g. Rent."
-            android:inputType="numberDecimal"
+            android:inputType="text"
             android:textColor="@color/black"
             android:textSize="13dp" />
 
@@ -112,7 +112,7 @@
         android:layout_marginEnd="10dp"
         android:textColorHint="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout1"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerListIcons"
         app:layout_constraintHorizontal_bias="0.516"
         app:layout_constraintStart_toEndOf="@+id/ti_expense_amount"
         app:layout_constraintTop_toBottomOf="@+id/ti_expense_name"
@@ -127,7 +127,7 @@
             android:clickable="true"
             android:focusable="false"
             android:hint="Date"
-            android:inputType="none"
+            android:inputType="date"
             android:maxLength="2"
             android:textColor="@color/black"
             android:textSize="13dp" />
@@ -145,9 +145,9 @@
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ti_expense_date"
         app:layout_constraintHorizontal_bias="0.572"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/ti_expense_amount"
         app:layout_constraintTop_toBottomOf="@+id/ti_expense_amount"
         app:layout_constraintVertical_bias="0.958" />
 
@@ -157,8 +157,8 @@
         android:layout_height="35dp"
         android:background="@drawable/bg_spinner"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout1"
-        app:layout_constraintEnd_toEndOf="@+id/linearLayout1"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerListIcons"
+        app:layout_constraintEnd_toEndOf="@+id/recyclerListIcons"
         app:layout_constraintHorizontal_bias="0.826"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

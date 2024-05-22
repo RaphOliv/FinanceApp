@@ -5,7 +5,7 @@
     <application
 
         android:allowBackup="true"
-        android:name=".FinanceAppApplication"
+        android:name="FinanceAppApplication"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/frag_img_4"
@@ -15,7 +15,7 @@
         android:theme="@style/Theme.FinanceApp"
         tools:targetApi="31">
         <activity
-            android:name=".presentation.Presentation"
+            android:name=".Adapters.Presentation"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +24,8 @@
             </intent-filter>
 
         </activity>
-<activity android:name=".presentation.FinanceAppActivity"/>
-<activity android:name=".presentation.MainActivity"/>
+<activity android:name=".FinanceAppActivity"/>
+<activity android:name=".MainActivity"/>
 
 
     </application>

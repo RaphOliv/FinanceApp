@@ -1,12 +1,12 @@
-package com.hacksprint.financeapp.presentation
+package com.hacksprint.financeapp.Adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.hacksprint.financeapp.FrameLayoutFragment
+import com.hacksprint.financeapp.Fragments.FrameLayoutFragment
 import com.hacksprint.financeapp.R
-
-class FrameAdapter (fragmentActivity: FragmentActivity):FragmentStateAdapter(fragmentActivity) {
+// adapter que infla os frames de apresentacao inicial
+class PresentationAdapter (fragmentActivity: FragmentActivity):FragmentStateAdapter(fragmentActivity) {
 
     override fun getItemCount(): Int {
         return 5

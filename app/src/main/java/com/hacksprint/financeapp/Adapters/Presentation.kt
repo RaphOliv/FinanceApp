@@ -1,4 +1,4 @@
-package com.hacksprint.financeapp.presentation
+package com.hacksprint.financeapp.Adapters
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import com.hacksprint.financeapp.MainActivity
 import com.hacksprint.financeapp.R
 
 class Presentation: AppCompatActivity() {
@@ -18,6 +19,7 @@ class Presentation: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.presentation)
 
+//classe presentation, sao 5 frames de apresentacao ao inciar o app
 
         val viewPager: ViewPager2 = findViewById(R.id.vp_presentation)
         indicator = findViewById(R.id.indicator_presentation)
@@ -25,7 +27,7 @@ class Presentation: AppCompatActivity() {
         btnNext = findViewById(R.id.btn_presentation)
 
         //configura o viewpager2 com o adapter
-        val adapter = FrameAdapter(this)
+        val adapter = PresentationAdapter(this)
         viewPager.adapter = adapter
 
         //registra as mudaças de tela dos fragments
@@ -38,6 +40,9 @@ class Presentation: AppCompatActivity() {
                     skip.visibility = View.INVISIBLE
                     indicator.visibility = View.INVISIBLE
                     btnNext.text = "Salvar"
+
+                    // se estiver no ultimo frame o texto do botao muda, e se estiver no penultimo tbm
+
                 }else if(position ==3){
                     btnNext.text = "Iniciar"
                 } else {
@@ -46,6 +51,7 @@ class Presentation: AppCompatActivity() {
             }
 
         })
+//botao que ao ser clicar pula os frames de apresentacao e vai para  ultimo frame
 
         skip.setOnClickListener{
             val currentItem = viewPager.currentItem
@@ -55,11 +61,12 @@ class Presentation: AppCompatActivity() {
                 viewPager.currentItem = lastaitem
             }
         }
-
+// botao que ao ser clicado pula para a proxima view, mas pode mudar de view apenas rolando.
         btnNext.setOnClickListener{
             val currentItem = viewPager.currentItem
             val lastaitem = viewPager.adapter?.itemCount?.minus(1)
 
+// se estiver no ultimo frame , inicia a proxima atividade ,mainActivity
             if (currentItem == lastaitem) {
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
@@ -67,6 +74,7 @@ class Presentation: AppCompatActivity() {
                 viewPager.setCurrentItem(currentItem + 1, true)
             }
         }
+// infla dois circulos com cores diferentes para ser um indicador de pagina dos frames
 
         val numPages = adapter.itemCount
         for (i in 0 until numPages) {
