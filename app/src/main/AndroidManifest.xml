@@ -5,6 +5,7 @@
     <application
 
         android:allowBackup="true"
+        android:name=".FinanceAppApplication"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/frag_img_4"
@@ -23,6 +24,7 @@
             </intent-filter>
 
         </activity>
+<activity android:name=".presentation.FinanceAppActivity"/>
 <activity android:name=".presentation.MainActivity"/>
 
 

@@ -1,5 +1,6 @@
 package com.hacksprint.financeapp.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -10,7 +11,7 @@ import androidx.room.Update
 @Dao
 interface ExpenseDao {
     @Query("SELECT * FROM expenseentity")
-    fun getAll(): List<ExpenseEntity>
+    fun getAll(): LiveData<List<ExpenseEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll(expenseEntity: List<ExpenseEntity>)
