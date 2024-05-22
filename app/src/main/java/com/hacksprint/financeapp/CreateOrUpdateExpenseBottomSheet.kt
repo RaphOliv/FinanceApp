@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.hacksprint.financeapp.data.CategoryEntity
@@ -88,7 +89,7 @@ class CreateOrUpdateExpenseBottomSheet(
                             date = System.currentTimeMillis().toString(),
                             description = description,
 
-                        )
+                            )
                     )
                     dismiss()
                     showMessages("Expense created")
@@ -114,9 +115,19 @@ class CreateOrUpdateExpenseBottomSheet(
         return view
 
     }
+
+    override fun onStart() {
+        super.onStart()
+        // Configura o BottomSheet para ficar expandido
+
+            dialog?.window?.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        }
+
+
     private fun showMessages(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 }
-
-

@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.hacksprint.financeapp.FrameAdapter
 import com.hacksprint.financeapp.R
 
 class Presentation: AppCompatActivity() {
