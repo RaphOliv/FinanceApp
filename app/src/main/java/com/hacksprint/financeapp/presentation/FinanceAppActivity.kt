@@ -4,15 +4,20 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.hacksprint.financeapp.presentation.CategoryUiData
 import com.hacksprint.financeapp.CreateCategoryBottomSheet
 import com.hacksprint.financeapp.CreateOrUpdateExpenseBottomSheet
+import com.hacksprint.financeapp.FinanceAppApplication
 import com.hacksprint.financeapp.InfoBottomSheet
 import com.hacksprint.financeapp.R
 import com.hacksprint.financeapp.data.CategoryEntity
@@ -27,18 +32,18 @@ class FinanceAppActivity : AppCompatActivity() {
     private var expenses = listOf<ExpenseUiData>()
     private var categoriesEntity = listOf<CategoryEntity>()
     private lateinit var onDeleteClicked: (ExpenseUiData) -> Unit
+    private lateinit var ctnContent: LinearLayout
 
     private val categoryAdapter = CategoryListAdapter()
     private val expenseAdapter by lazy {
         ExpenseListAdapter()
     }
 
-    private val db by lazy {
-        Room.databaseBuilder(
-            applicationContext,
-            FinanceAppDataBase::class.java, "database-financeapp"
-        ).build()
+    private val viewModel: FinanceAppViewModel by lazy {
+        FinanceAppViewModel.create(application)
     }
+
+    lateinit var db: FinanceAppDataBase
 
     private val categoryDao by lazy {
         db.getCategoryDao()
@@ -50,7 +55,9 @@ class FinanceAppActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_list,)
+        setContentView(R.layout.fragment_list)
+
+        ctnContent = findViewById(R.id.ctn_content)
 
         val rvCategory = findViewById<RecyclerView>(R.id.rv_categories)
         val rvExpense = findViewById<RecyclerView>(R.id.rv_expenses)
@@ -125,14 +132,7 @@ class FinanceAppActivity : AppCompatActivity() {
         }
 
         rvCategory.adapter = categoryAdapter
-        GlobalScope.launch(Dispatchers.IO) {
-            getCategoriesFromDatabase()
-        }
-
         rvExpense.adapter = expenseAdapter
-        GlobalScope.launch(Dispatchers.IO) {
-            getExpensesFromDatabase()
-        }
 
         onDeleteClicked = { expense ->
             val expenseEntityToBeDeleted = ExpenseEntity(
@@ -215,6 +215,21 @@ class FinanceAppActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(rvExpense)
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        /*db = (application as FinanceAppApplication).getFinanceAppDatabase()*/
+
+        GlobalScope.launch(Dispatchers.IO) {
+            getCategoriesFromDatabase()
+        }
+
+        GlobalScope.launch(Dispatchers.IO) {
+            getExpensesFromDatabase()
+        }
+
+    }
+
     private fun showInfoDialog(
         title: String,
         message: String,
@@ -233,82 +248,88 @@ class FinanceAppActivity : AppCompatActivity() {
     }
 
     private fun getCategoriesFromDatabase() {
-        val categoriesFromDb: List<CategoryEntity> = categoryDao.getAll()
-        categoriesEntity = categoriesFromDb
-        val categoriesUiData = categoriesFromDb.map {
-            CategoryUiData(
-                name = it.name,
-                isSelected = it.isSelected
+        val categoryObserver = Observer<List<CategoryEntity>> { categoriesFromDb ->
+            categoriesEntity = categoriesFromDb
+            val categoriesUiData = categoriesFromDb.map {
+                CategoryUiData(
+                    name = it.name,
+                    isSelected = it.isSelected
+                )
+            }
+                .toMutableList()
+
+            categoriesUiData.add(
+                CategoryUiData(
+                    name = "+",
+                    isSelected = false
+                )
             )
+
+            val tempCategoryList = mutableListOf(
+                CategoryUiData(
+                    name = "ALL",
+                    isSelected = true
+                )
+            )
+
+            tempCategoryList.addAll(categoriesUiData)
+            categoryAdapter.submitList(tempCategoryList)
         }
-            .toMutableList()
 
-        categoriesUiData.add(
-            CategoryUiData(
-                name = "+",
-                isSelected = false
-            )
-        )
+        viewModel.categoryListLiveDataLiveData.observe(this@FinanceAppActivity, categoryObserver)
 
-        val tempCategoryList = mutableListOf(
-            CategoryUiData(
-                name = "ALL",
-                isSelected = true
-            )
-        )
-
-        tempCategoryList.addAll(categoriesUiData)
-        GlobalScope.launch(Dispatchers.Main) {
-            categories = tempCategoryList
-            categoryAdapter.submitList(categories)
-        }
     }
 
-    private fun getExpensesFromDatabase() {
-        val expensesFromDb: List<ExpenseEntity> = expenseDao.getAll()
-        val expensesUiData = expensesFromDb.map {
-            ExpenseUiData(
-                id = it.id.toInt(),
-                amount = it.amount,
-                category = it.category,
-                description = it.description,
-                date = it.date.toString(),
-                /*icon = it.icon,
-                status = it.status*/
-            )
+     private fun getExpensesFromDatabase() {
+        val expenseObserver = Observer<List<ExpenseEntity>> { expensesFromDb ->
+            if (expensesFromDb.isEmpty()) {
+                ctnContent.visibility = View.VISIBLE
+            } else {
+                ctnContent.visibility = View.GONE
+            }
+            expenseAdapter.submitList(expensesFromDb.map {
+                ExpenseUiData(
+                    id = it.id.toInt(),
+                    amount = it.amount,
+                    category = it.category,
+                    description = it.description,
+                    date = it.date.toString(),
+                    /*icon = it.icon,
+                    status = it.status*/
+                )
+            })
+
         }
 
-        GlobalScope.launch(Dispatchers.Main) {
+        viewModel.expenseListLiveData.observe(this@FinanceAppActivity, expenseObserver)
+
+        /*GlobalScope.launch(Dispatchers.Main) {
             expenses = expensesUiData
             expenseAdapter.submitList(expensesUiData)
-        }
+        }*/
     }
 
     private fun insertCategory(categoryEntity: CategoryEntity){
         GlobalScope.launch(Dispatchers.IO) {
             categoryDao.insert(categoryEntity)
-            getCategoriesFromDatabase()
         }
     }
 
     private fun insertExpense(expenseEntity: ExpenseEntity){
         GlobalScope.launch(Dispatchers.IO) {
             expenseDao.insert(expenseEntity)
-            getExpensesFromDatabase()
         }
     }
 
     private fun updateExpense(expenseEntity: ExpenseEntity){
         GlobalScope.launch(Dispatchers.IO) {
             expenseDao.update(expenseEntity)
-            getExpensesFromDatabase()
         }
     }
 
     private fun deleteExpense(expenseEntity: ExpenseEntity) {
         GlobalScope.launch(Dispatchers.IO) {
             expenseDao.delete(expenseEntity)
-            getExpensesFromDatabase()
         }
     }
 
@@ -317,8 +338,6 @@ class FinanceAppActivity : AppCompatActivity() {
             val expensesToBeDeleted = expenseDao.getAllByCategoryName(categoryEntity.name)
             expenseDao.deleteAll(expensesToBeDeleted)
             categoryDao.delete(categoryEntity)
-            getCategoriesFromDatabase()
-            getExpensesFromDatabase()
         }
     }
 
