@@ -1,11 +1,13 @@
-package com.hacksprint.financeapp
+package com.hacksprint.financeapp.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.hacksprint.financeapp.Fragments.GraficFragment
 import com.hacksprint.financeapp.Fragments.HomeFragment
-import com.hacksprint.financeapp.Fragments.ProfileFragment
+import com.hacksprint.financeapp.GraficFragment
+import com.hacksprint.financeapp.ListFragment
+import com.hacksprint.financeapp.ProfileFragment
+import com.hacksprint.financeapp.R
 import com.hacksprint.financeapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +18,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-// Main activity ultilizada para fazer a navegacao  entre os fragments do bottom navigation
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
@@ -39,7 +40,6 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
-//sempre inciara com a home selecionada
 
         if (savedInstanceState == null) {
             replaceFragment(HomeFragment())
@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-// funcao que faz com que o fragment seja selecionado
     private fun replaceFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.frame, fragment).commit()
     }

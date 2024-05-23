@@ -1,50 +1,45 @@
-package com.hacksprint.financeapp
+package com.hacksprint.financeapp.presentation
 
-import com.hacksprint.financeapp.data.ExpenseEntity
-import FinanceAppDataBase
-import FinanceAppViewModel
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.View
-import android.widget.LinearLayout
+import android.widget.Adapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.hacksprint.financeapp.Adapters.CategoryListAdapter
-import com.hacksprint.financeapp.Adapters.CategoryUiData
-import com.hacksprint.financeapp.Adapters.ExpenseListAdapter
+import androidx.room.Room
+import com.hacksprint.financeapp.CreateCategoryBottomSheet
+import com.hacksprint.financeapp.CreateOrUpdateExpenseBottomSheet
+import com.hacksprint.financeapp.InfoBottomSheet
+import com.hacksprint.financeapp.R
 import com.hacksprint.financeapp.data.CategoryEntity
-import com.hacksprint.financeapp.data.ExpenseUiData
+import com.hacksprint.financeapp.data.ExpenseEntity
+import com.hacksprint.financeapp.data.FinanceAppDataBase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlin.math.E
 
 class FinanceAppActivity : AppCompatActivity() {
     private var categories = listOf<CategoryUiData>()
     private var expenses = listOf<ExpenseUiData>()
     private var categoriesEntity = listOf<CategoryEntity>()
     private lateinit var onDeleteClicked: (ExpenseUiData) -> Unit
-    private lateinit var ctnContent: LinearLayout
 
     private val categoryAdapter = CategoryListAdapter()
     private val expenseAdapter by lazy {
-        ExpenseListAdapter { expense ->
-
-            Toast.makeText(this, "Expense clicked: ${expense.description}", Toast.LENGTH_SHORT).show()
-        }
+        ExpenseListAdapter()
     }
 
-    private val viewModel: FinanceAppViewModel by lazy {
-        FinanceAppViewModel.create(application)
+    private val db by lazy {
+        Room.databaseBuilder(
+            applicationContext,
+            FinanceAppDataBase::class.java, "database-financeapp"
+        ).build()
     }
-
-
-    lateinit var db: FinanceAppDataBase
 
     private val categoryDao by lazy {
         db.getCategoryDao()
@@ -56,9 +51,7 @@ class FinanceAppActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.fragment_list)
-
-        ctnContent = findViewById(R.id.ctn_content)
+        setContentView(R.layout.fragment_list,)
 
         val rvCategory = findViewById<RecyclerView>(R.id.rv_categories)
         val rvExpense = findViewById<RecyclerView>(R.id.rv_expenses)
@@ -68,15 +61,15 @@ class FinanceAppActivity : AppCompatActivity() {
         val swipeBackground = ColorDrawable(Color.RED)
 
         /* fabCreateExpense.setOnClickListener {
-            showCreateUpdateExpenseBottomSheet()
-        }*/
+             showCreateUpdateExpenseBottomSheet()
+         }*/
 
-       /* expenseAdapter.setOnClickListener { expense ->
+        expenseAdapter.setOnClickListener {expense ->
             showCreateUpdateExpenseBottomSheet(expense)
-        }*/
+        }
 
         categoryAdapter.setOnLongClickListener { categoryToBeDeleted ->
-            if (categoryToBeDeleted.name != "+" && categoryToBeDeleted.name != "ALL") {
+            if(categoryToBeDeleted.name != "+" && categoryToBeDeleted.name != "ALL") {
                 val title = this.getString(R.string.category_delete_title)
                 val message = this.getString(R.string.category_delete_message)
                 val btnAction = this.getString(R.string.delete)
@@ -98,7 +91,7 @@ class FinanceAppActivity : AppCompatActivity() {
 
         categoryAdapter.setOnClickListener { selected ->
             if (selected.name == "+") {
-                val createCategoryBottomSheet = CreateCategoryBottomSheet { categoryName ->
+                val createCategoryBottomSheet = CreateCategoryBottomSheet{ categoryName ->
                     val categoryEntity = CategoryEntity(
                         name = categoryName,
                         isSelected = false
@@ -112,6 +105,7 @@ class FinanceAppActivity : AppCompatActivity() {
                 val categoryTemp = categories.map { item ->
                     when {
                         item.name == selected.name && item.isSelected -> item.copy(isSelected = true)
+
                         item.name == selected.name && !item.isSelected -> item.copy(isSelected = true)
                         item.name != selected.name && item.isSelected -> item.copy(isSelected = false)
                         else -> item
@@ -132,7 +126,14 @@ class FinanceAppActivity : AppCompatActivity() {
         }
 
         rvCategory.adapter = categoryAdapter
+        GlobalScope.launch(Dispatchers.IO) {
+            getCategoriesFromDatabase()
+        }
+
         rvExpense.adapter = expenseAdapter
+        GlobalScope.launch(Dispatchers.IO) {
+            getExpensesFromDatabase()
+        }
 
         onDeleteClicked = { expense ->
             val expenseEntityToBeDeleted = ExpenseEntity(
@@ -215,21 +216,6 @@ class FinanceAppActivity : AppCompatActivity() {
         itemTouchHelper.attachToRecyclerView(rvExpense)
     }
 
-    override fun onStart() {
-        super.onStart()
-
-        /*db = (application as com.hacksprint.financeapp.FinanceAppApplication).getFinanceAppDatabase()*/
-
-        GlobalScope.launch(Dispatchers.IO) {
-            getCategoriesFromDatabase()
-        }
-
-        GlobalScope.launch(Dispatchers.IO) {
-            getExpensesFromDatabase()
-        }
-
-    }
-
     private fun showInfoDialog(
         title: String,
         message: String,
@@ -244,54 +230,45 @@ class FinanceAppActivity : AppCompatActivity() {
         )
         infoBottomSheet.show(
             supportFragmentManager,
-            "infoBottomSheet"
-        )
+            "infoBottomSheet")
     }
 
     private fun getCategoriesFromDatabase() {
-        val categoryObserver = Observer<List<CategoryEntity>> { categoriesFromDb ->
+        categoryDao.getAll().observe(this) { categoriesFromDb ->
             categoriesEntity = categoriesFromDb
-            val categoriesUiData = categoriesFromDb.mapIndexed { index, categoryEntity ->
+            val categoriesUiData = categoriesFromDb.map {
                 CategoryUiData(
-                    id = index.toString(), // Usando o índice da lista como ID único
-                    name = categoryEntity.name,
-                    isSelected = categoryEntity.isSelected
+                    name = it.name,
+                    isSelected = it.isSelected
                 )
             }.toMutableList()
 
-            // Adicionando uma categoria especial para criar uma nova categoria
             categoriesUiData.add(
                 CategoryUiData(
-                    id = "-1", // Um ID especial para a categoria "nova categoria"
                     name = "+",
                     isSelected = false
                 )
             )
 
-            // Adicionando uma categoria especial para mostrar todas as categorias
-            categoriesUiData.add(
+            val tempCategoryList = mutableListOf(
                 CategoryUiData(
-                    id = "-2", // Um ID especial para a categoria "todas as categorias"
                     name = "ALL",
                     isSelected = true
                 )
             )
 
-            categoryAdapter.submitList(categoriesUiData)
-        }
+            tempCategoryList.addAll(categoriesUiData)
 
-        viewModel.categoryListLiveDataLiveData.observe(this@FinanceAppActivity, categoryObserver)
+            categories = tempCategoryList
+            categoryAdapter.submitList(categories)
+        }
     }
 
 
+
     private fun getExpensesFromDatabase() {
-        val expenseObserver = Observer<List<ExpenseEntity>> { expensesFromDb ->
-            if (expensesFromDb.isEmpty()) {
-                ctnContent.visibility = View.VISIBLE
-            } else {
-                ctnContent.visibility = View.GONE
-            }
-            expenseAdapter.submitList(expensesFromDb.map {
+        expenseDao.getAll().observe(this) { expensesFromDb ->
+            val expensesUiData = expensesFromDb.map {
                 ExpenseUiData(
                     id = it.id.toInt(),
                     amount = it.amount,
@@ -301,33 +278,39 @@ class FinanceAppActivity : AppCompatActivity() {
                     /*icon = it.icon,
                     status = it.status*/
                 )
-            })
-        }
+            }
 
-        viewModel.expenseListLiveData.observe(this@FinanceAppActivity, expenseObserver)
+            expenses = expensesUiData
+            expenseAdapter.submitList(expensesUiData)
+        }
     }
 
-    private fun insertCategory(categoryEntity: CategoryEntity) {
+
+    private fun insertCategory(categoryEntity: CategoryEntity){
         GlobalScope.launch(Dispatchers.IO) {
             categoryDao.insert(categoryEntity)
+            getCategoriesFromDatabase()
         }
     }
 
-    private fun insertExpense(expenseEntity: ExpenseEntity) {
+    private fun insertExpense(expenseEntity: ExpenseEntity){
         GlobalScope.launch(Dispatchers.IO) {
             expenseDao.insert(expenseEntity)
+            getExpensesFromDatabase()
         }
     }
 
-    private fun updateExpense(expenseEntity: ExpenseEntity) {
+    private fun updateExpense(expenseEntity: ExpenseEntity){
         GlobalScope.launch(Dispatchers.IO) {
             expenseDao.update(expenseEntity)
+            getExpensesFromDatabase()
         }
     }
 
     private fun deleteExpense(expenseEntity: ExpenseEntity) {
         GlobalScope.launch(Dispatchers.IO) {
             expenseDao.delete(expenseEntity)
+            getExpensesFromDatabase()
         }
     }
 
@@ -336,10 +319,12 @@ class FinanceAppActivity : AppCompatActivity() {
             val expensesToBeDeleted = expenseDao.getAllByCategoryName(categoryEntity.name)
             expenseDao.deleteAll(expensesToBeDeleted)
             categoryDao.delete(categoryEntity)
+            getCategoriesFromDatabase()
+            getExpensesFromDatabase()
         }
     }
 
-    private fun filterExpensesByCategoryName(categoryName: String) {
+    private fun filterExpensesByCategoryName(categoryName: String){
         GlobalScope.launch(Dispatchers.IO) {
             val expensesFromDb: List<ExpenseEntity> = expenseDao.getAllByCategoryName(categoryName)
             val expensesUiData = expensesFromDb.map {
@@ -362,42 +347,40 @@ class FinanceAppActivity : AppCompatActivity() {
 
     private fun showCreateUpdateExpenseBottomSheet(expenseUiData: ExpenseUiData? = null) {
         val createExpenseBottomSheet = CreateOrUpdateExpenseBottomSheet(
-            viewModelFinance = viewModel,
-            adapterFinance = expenseAdapter,
-            categoryList = viewModel.categoryListLiveDataLiveData.value ?: listOf(),
             expense = expenseUiData,
-            onCreateClicked = { expenseToBeCreated ->
+            categoryList = categoriesEntity,
+            onCreateClicked = {
+                    expenseToBeCreated ->
                 val expenseEntityToBeInserted = ExpenseEntity(
                     amount = expenseToBeCreated.amount,
                     category = expenseToBeCreated.category,
                     description = expenseToBeCreated.description,
-                    date = System.currentTimeMillis()
+                    date = System.currentTimeMillis(),
+                    /*icon = R.drawable.ic_home,
+                    status = R.drawable.baseline_circle_green_24*/
                 )
                 insertExpense(expenseEntityToBeInserted)
             },
-            onUpdateClicked = { expenseToBeUpdated ->
+            onUpdateClicked = {
+                    expenseToBeUpdated ->
                 val expenseEntityToBeUpdated = ExpenseEntity(
                     id = expenseToBeUpdated.id.toLong(),
                     amount = expenseToBeUpdated.amount,
                     category = expenseToBeUpdated.category,
                     description = expenseToBeUpdated.description,
-                    date = System.currentTimeMillis()
+                    date = System.currentTimeMillis(),
+                    /*icon = R.drawable.ic_home,
+                    status = R.drawable.baseline_circle_green_24*/
                 )
                 updateExpense(expenseEntityToBeUpdated)
             },
-            onDeleteClicked = { expenseToBeDeleted ->
-                val expenseEntityToBeDeleted = ExpenseEntity(
-                    id = expenseToBeDeleted.id.toLong(),
-                    amount = expenseToBeDeleted.amount,
-                    category = expenseToBeDeleted.category,
-                    description = expenseToBeDeleted.description,
-                    date = expenseToBeDeleted.date.toLong()
-                )
-                deleteExpense(expenseEntityToBeDeleted)
-            }
+            onDeleteClicked = onDeleteClicked,
+            viewModelFinance = FinanceAppViewModel,
+           adapterFinance = ExpenseListAdapter()
+
         )
-        createExpenseBottomSheet.show(supportFragmentManager, "create_expense")
+        createExpenseBottomSheet.show(
+            supportFragmentManager,
+            "create_expense")
     }
-
 }
-

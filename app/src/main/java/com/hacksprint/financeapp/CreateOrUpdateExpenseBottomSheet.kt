@@ -1,6 +1,5 @@
 package com.hacksprint.financeapp
 
-import FinanceAppViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,13 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
-import com.hacksprint.financeapp.Adapters.ExpenseListAdapter
 import com.hacksprint.financeapp.Adapters.ListIconsAdapter
 import com.hacksprint.financeapp.data.CategoryEntity
-import com.hacksprint.financeapp.data.ExpenseUiData
+import com.hacksprint.financeapp.presentation.ExpenseListAdapter
+import com.hacksprint.financeapp.presentation.ExpenseUiData
+import com.hacksprint.financeapp.presentation.FinanceAppViewModel
 
 class CreateOrUpdateExpenseBottomSheet(
-    private val viewModelFinance:FinanceAppViewModel,
+    private val viewModelFinance: FinanceAppViewModel,
     private val adapterFinance: ExpenseListAdapter,
     private val categoryList: List<CategoryEntity>,
     private val expense: ExpenseUiData? = null,

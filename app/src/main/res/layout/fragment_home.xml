@@ -19,7 +19,6 @@
         app:layout_constraintVertical_bias="0.076" />
 
     <com.google.android.material.imageview.ShapeableImageView
-
         android:id="@+id/btn_show_dielog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,20 +44,6 @@
         app:layout_constraintStart_toStartOf="@+id/btn_show_dielog"
         app:layout_constraintTop_toTopOf="@+id/btn_show_dielog"
         app:layout_constraintVertical_bias="0.47" />
-
-    <TextView
-        android:textAlignment="center"
-        android:layout_width="42dp"
-        android:layout_height="22dp"
-        android:text="Add Despesa"
-        android:textColor="@color/blue"
-        android:textSize="8dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_show_dielog"
-        app:layout_constraintEnd_toEndOf="@+id/btn_show_dielog"
-        app:layout_constraintStart_toStartOf="@+id/btn_show_dielog"
-        app:layout_constraintTop_toTopOf="@+id/btn_show_dielog"
-        app:layout_constraintVertical_bias="0.849" />
 
     <TextView
         android:id="@+id/textView6"
@@ -143,15 +128,15 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
-        android:layout_width="362dp"
-        android:layout_height="376dp"
-        android:src="@drawable/imghome"
+        android:layout_width="356dp"
+        android:layout_height="307dp"
+        android:src="@drawable/vazioimg2"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintHorizontal_bias="0.449"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.954" />
+        app:layout_constraintVertical_bias="0.77" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
