@@ -375,8 +375,7 @@ class FinanceAppActivity : AppCompatActivity() {
                 updateExpense(expenseEntityToBeUpdated)
             },
             onDeleteClicked = onDeleteClicked,
-            viewModelFinance = FinanceAppViewModel,
-           adapterFinance = ExpenseListAdapter()
+
 
         )
         createExpenseBottomSheet.show(

@@ -17,18 +17,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.hacksprint.financeapp.Adapters.ListIconsAdapter
 import com.hacksprint.financeapp.data.CategoryEntity
-import com.hacksprint.financeapp.presentation.ExpenseListAdapter
 import com.hacksprint.financeapp.presentation.ExpenseUiData
-import com.hacksprint.financeapp.presentation.FinanceAppViewModel
 
 class CreateOrUpdateExpenseBottomSheet(
-    private val viewModelFinance: FinanceAppViewModel,
-    private val adapterFinance: ExpenseListAdapter,
     private val categoryList: List<CategoryEntity>,
     private val expense: ExpenseUiData? = null,
     private val onCreateClicked: (ExpenseUiData) -> Unit,
     private val onUpdateClicked: (ExpenseUiData) -> Unit,
-    private val onDeleteClicked: (ExpenseUiData) -> Unit
+    private val onDeleteClicked: ((ExpenseUiData) -> Unit)? = null
 ) : BottomSheetDialogFragment() {
 
     override fun onCreateView(
@@ -57,8 +53,7 @@ class CreateOrUpdateExpenseBottomSheet(
         recyclerViewIcons.adapter = listIconsAdapter
         recyclerViewIcons.layoutManager = GridLayoutManager(context, 5)
 
-        // chama os edit texts e o botao
-
+        // Initialize the views
         val tvTitle = view.findViewById<TextView>(R.id.tv_expense_title)
         val edtExpenseName = view.findViewById<TextInputEditText>(R.id.et_expense_name)
         val edtExpenseAmount = view.findViewById<TextInputEditText>(R.id.et_expense_amount)
@@ -116,7 +111,7 @@ class CreateOrUpdateExpenseBottomSheet(
                     onCreateClicked.invoke(
                         ExpenseUiData(
                             id = 0,
-                            amount = 0.0,
+                            amount = edtExpenseAmount.text.toString().toDoubleOrNull() ?: 0.0,
                             category = requireNotNull(expenseCategory),
                             date = System.currentTimeMillis().toString(),
                             description = description
@@ -128,7 +123,7 @@ class CreateOrUpdateExpenseBottomSheet(
                     onUpdateClicked.invoke(
                         ExpenseUiData(
                             id = expense.id,
-                            amount = expense.amount,
+                            amount = edtExpenseAmount.text.toString().toDoubleOrNull() ?: expense.amount,
                             category = requireNotNull(expenseCategory),
                             date = expense.date,
                             description = description
@@ -164,7 +159,6 @@ class CreateOrUpdateExpenseBottomSheet(
             behavior.peekHeight = BottomSheetBehavior.PEEK_HEIGHT_AUTO
         }
     }
-
 
     private fun showMessages(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
