@@ -1,6 +1,5 @@
 package com.hacksprint.financeapp.Fragments
 
-import FinanceAppViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,13 +8,11 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.hacksprint.financeapp.Adapters.ExpenseListAdapter
-import com.hacksprint.financeapp.CreateOrUpdateExpenseBottomSheet
 import com.hacksprint.financeapp.R
-import com.hacksprint.financeapp.data.CategoryEntity
 
 class HomeFragment : Fragment() {
 
-    private lateinit var viewModel: FinanceAppViewModel
+   /* private lateinit var viewModel: FinanceAppViewModel*/
     private lateinit var expenseListAdapter: ExpenseListAdapter
 
     override fun onCreateView(
@@ -25,34 +22,30 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
-        // Inicialize o ViewModel e o Adapter, se necessário
-        viewModel = FinanceAppViewModel.create(requireActivity().application)
+        /*viewModel = FinanceAppViewModel.create(requireActivity().application)*/
 
         expenseListAdapter = ExpenseListAdapter { expense ->
-
-
-            Toast.makeText(requireContext(), "Expense clicked: ${expense.description}", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Expense clicked", Toast.LENGTH_SHORT).show()
         }
 
-        //Botao azul da
-        val bottomSheetImageView = view.findViewById<ImageView>(R.id.btn_show_dielog)
+        val bottomSheetImageView = view.findViewById<ImageView>(R.id.shapeableImageView2)
         bottomSheetImageView.setOnClickListener {
-            val categoryList = listOf<CategoryEntity>()
+            /*val categoryList = listOf<CategoryEntity>()
             val bottomSheetDialog = CreateOrUpdateExpenseBottomSheet(
                 viewModel,
                 expenseListAdapter,
                 categoryList,
-                onCreateClicked = { expense ->
+                onCreateClicked = { *//*expense ->*//*
                     // Lógica para criar uma nova despesa
                 },
-                onUpdateClicked = { expense ->
+                onUpdateClicked = { *//*expense ->*//*
                     // Lógica para atualizar uma despesa existente
                 },
-                onDeleteClicked = { expense ->
+                onDeleteClicked = { *//*expense ->*//*
                     // Lógica para excluir uma despesa existente
                 }
             )
-            bottomSheetDialog.show(childFragmentManager, bottomSheetDialog.tag)
+            bottomSheetDialog.show(childFragmentManager, bottomSheetDialog.tag)*/
         }
 
         return view

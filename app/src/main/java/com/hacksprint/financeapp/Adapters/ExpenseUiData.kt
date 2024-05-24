@@ -1,4 +1,4 @@
-package com.hacksprint.financeapp.data
+package com.hacksprint.financeapp.Adapters
 
 //data class para o btnDielog createOrUpdateExpenseBottomSheet
 data class ExpenseUiData(

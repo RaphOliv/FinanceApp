@@ -3,7 +3,7 @@ package com.hacksprint.financeapp.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-//data Class para o btn Dielog CreateCategoryBottomSheet
+
 @Entity
 data class CategoryEntity(
     @PrimaryKey

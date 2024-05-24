@@ -17,7 +17,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
 import com.hacksprint.financeapp.Adapters.ListIconsAdapter
 import com.hacksprint.financeapp.data.CategoryEntity
-import com.hacksprint.financeapp.presentation.ExpenseUiData
+import com.hacksprint.financeapp.Adapters.ExpenseUiData
 
 class CreateOrUpdateExpenseBottomSheet(
     private val categoryList: List<CategoryEntity>,
@@ -63,7 +63,7 @@ class CreateOrUpdateExpenseBottomSheet(
 
         var expenseCategory: String? = null
         val categoryListTemp = mutableListOf("Select a category")
-        categoryListTemp.addAll(categoryList.map { it.name })
+
 
         ArrayAdapter(
             requireActivity().baseContext,
@@ -99,42 +99,45 @@ class CreateOrUpdateExpenseBottomSheet(
             edtExpenseAmount.setText(expense.amount.toString())
             edtExpenseDate.setText(expense.date)
 
-            val currentCategory = categoryList.first { it.name == expense.category }
-            val index = categoryList.indexOf(currentCategory)
-            spinner.setSelection(index)
+            val index = categoryListTemp.indexOf(expense.category)
+            if (index != -1) {
+                spinner.setSelection(index)
+            }
         }
 
         btnCreateOrUpdate.setOnClickListener {
-            val description = edtExpenseName.text.toString().trim()
-            if (expenseCategory != "Select a category" && description.isNotEmpty()) {
-                if (expense == null) {
-                    onCreateClicked.invoke(
-                        ExpenseUiData(
-                            id = 0,
-                            amount = edtExpenseAmount.text.toString().toDoubleOrNull() ?: 0.0,
-                            category = requireNotNull(expenseCategory),
-                            date = System.currentTimeMillis().toString(),
-                            description = description
-                        )
-                    )
-                    dismiss()
-                    showMessages("Expense created")
-                } else {
-                    onUpdateClicked.invoke(
-                        ExpenseUiData(
-                            id = expense.id,
-                            amount = edtExpenseAmount.text.toString().toDoubleOrNull() ?: expense.amount,
-                            category = requireNotNull(expenseCategory),
-                            date = expense.date,
-                            description = description
-                        )
-                    )
-                    dismiss()
-                    showMessages("Expense updated")
-                }
-            } else {
-                showMessages("Fields are required")
+            val name = edtExpenseName.text.toString()
+            val amount = edtExpenseAmount.text.toString()
+            val date = edtExpenseDate.text.toString()
+
+            if (name.isEmpty() || amount.isEmpty() || date.isEmpty() || expenseCategory == null) {
+                showMessages("All fields are required")
+                return@setOnClickListener
             }
+
+            if (expense == null) {
+                onCreateClicked.invoke(
+                    ExpenseUiData(
+                        id = 0,
+                        description = name,
+                        amount = amount.toDouble(),
+                        date = date,
+                        category = expenseCategory!!
+                    )
+                )
+            } else {
+                onUpdateClicked(
+                    ExpenseUiData(
+                        id = expense.id,
+                        description = name,
+                        amount = amount.toDouble(),
+                        date = date,
+                        category = expenseCategory!!
+                    )
+                )
+            }
+
+            dismiss()
         }
 
         return view

@@ -9,12 +9,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hacksprint.financeapp.R
-import com.hacksprint.financeapp.data.ExpenseUiData
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-class ExpenseListAdapter(private val callBack: (ExpenseUiData) -> Unit) :
+class ExpenseListAdapter(param: (Any) -> Unit)/*(private val callBack: (ExpenseUiData) -> Unit)*/ :
     ListAdapter<ExpenseUiData, ExpenseListAdapter.ExpenseViewHolder>(diffCallback()) {
+
+    private lateinit var callBack: (ExpenseUiData) -> Unit
+    fun setOnClickListener(onClick: (ExpenseUiData) -> Unit) {
+        callBack = onClick
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder {
@@ -26,6 +30,7 @@ class ExpenseListAdapter(private val callBack: (ExpenseUiData) -> Unit) :
         val expense = getItem(position)
         holder.bind(expense, callBack)
     }
+
 
     class ExpenseViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val ivCategory: ImageView = view.findViewById(R.id.iv_category)

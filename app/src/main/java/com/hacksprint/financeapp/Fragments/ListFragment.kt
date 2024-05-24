@@ -53,26 +53,4 @@ class ListFragment : Fragment() {
 
     }
 
-   /* override fun onResume() {
-        super.onResume()
-
-        val categoryListAdapter = CategoryListAdapter()
-
-        categoryListAdapter.setOnClickListener { category ->
-
-        }
-        categoryListAdapter.setOnLongClickListener { category ->
-
-            true
-        }
-        rvCategory?.adapter = categoryListAdapter
-
-        val expenseListAdapter = ExpenseListAdapter()
-        expenseListAdapter.setOnClickListener { expense ->
-
-        }
-        rvExpenses?.adapter = expenseListAdapter
-    }*/
-
-
 }

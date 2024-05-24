@@ -1,5 +1,7 @@
 package com.hacksprint.financeapp
 
+import ExpenseDao
+import FinanceAppDataBase
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,69 +9,21 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import com.hacksprint.financeapp.Adapters.ExpenseListAdapter
 import com.hacksprint.financeapp.data.CategoryEntity
-import com.hacksprint.financeapp.data.ExpenseDao
 import com.hacksprint.financeapp.data.ExpenseEntity
-import com.hacksprint.financeapp.data.FinanceAppDataBase
-import com.hacksprint.financeapp.presentation.ExpenseListAdapter
-import com.hacksprint.financeapp.presentation.ExpenseUiData
-import com.hacksprint.financeapp.presentation.FinanceAppViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class HomeFragment : Fragment() {
-
-    private lateinit var viewModel: FinanceAppViewModel
-    private lateinit var expenseListAdapter: ExpenseListAdapter
-
-    private lateinit var db: FinanceAppDataBase
-    private lateinit var expenseDao: ExpenseDao
+class ProfileFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-        val bottomSheetImageView = view.findViewById<ImageView>(R.id.btn_show_dielog)
-        bottomSheetImageView.setOnClickListener {
-            val categoryList = listOf<CategoryEntity>()
-            val bottomSheetDialog = CreateOrUpdateExpenseBottomSheet(
-                categoryList,
-                onCreateClicked = { expense ->
-                    val expenseEntity = ExpenseEntity(
-                        id = 0,
-                        amount = expense.amount,
-                        category = expense.category,
-                        description = expense.description,
-                        date = System.currentTimeMillis()
-                    )
-                    GlobalScope.launch(Dispatchers.IO) {
-                        val expenseDao = db.getExpenseDao()
-                        expenseDao.insert(expenseEntity)
-                        requireActivity().runOnUiThread {
-                            Toast.makeText(requireContext(), "Expense Created", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                    /*viewModel.expenseListLiveData.observe(viewLifecycleOwner, Observer { expenseList ->
-                        expenseListAdapter.submitList(expenseList.map { ExpenseUiData(it) })
-                    })*/
-
-
-                },
-                onUpdateClicked = { expense ->
-                    // Lógica para atualizar uma despesa existente
-                },
-                onDeleteClicked = { expense ->
-                    // Lógica para excluir uma despesa existente
-                }
-            )
-            bottomSheetDialog.show(childFragmentManager, bottomSheetDialog.tag)
-        }
+        val view = inflater.inflate(R.layout.fragment_profile, container, false)
 
         return view
     }
