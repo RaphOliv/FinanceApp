@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-
+// Bottom Dielog que exibe a mensagem antes de ser apagada um card da lista
 class InfoBottomSheet(
     private val title: String,
     private val message: String,

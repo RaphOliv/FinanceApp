@@ -1,16 +1,15 @@
 package com.hacksprint.financeapp
 
+import FinanceAppDataBase
 import android.app.Application
 import androidx.room.Room
-import com.hacksprint.financeapp.data.FinanceAppDataBase
 
-class FinanceAppApplication: Application(){
-
-    private lateinit var db: FinanceAppDataBase
+class FinanceAppApplication : Application() {
+    lateinit var db: FinanceAppDataBase
+        private set
 
     override fun onCreate() {
         super.onCreate()
-
         db = Room.databaseBuilder(
             applicationContext,
             FinanceAppDataBase::class.java,

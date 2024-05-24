@@ -1,4 +1,4 @@
-package com.hacksprint.financeapp
+package com.hacksprint.financeapp.Fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater

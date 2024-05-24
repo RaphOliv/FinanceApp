@@ -3,8 +3,8 @@ package com.hacksprint.financeapp.presentation
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.hacksprint.financeapp.Fragments.HomeFragment
 import com.hacksprint.financeapp.GraficFragment
-import com.hacksprint.financeapp.HomeFragment
 import com.hacksprint.financeapp.ListFragment
 import com.hacksprint.financeapp.ProfileFragment
 import com.hacksprint.financeapp.R

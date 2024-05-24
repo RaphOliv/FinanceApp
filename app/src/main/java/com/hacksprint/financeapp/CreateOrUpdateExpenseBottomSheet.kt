@@ -10,9 +10,12 @@ import android.widget.Button
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
+import com.hacksprint.financeapp.Adapters.ListIconsAdapter
 import com.hacksprint.financeapp.data.CategoryEntity
 import com.hacksprint.financeapp.presentation.ExpenseUiData
 
@@ -21,8 +24,8 @@ class CreateOrUpdateExpenseBottomSheet(
     private val expense: ExpenseUiData? = null,
     private val onCreateClicked: (ExpenseUiData) -> Unit,
     private val onUpdateClicked: (ExpenseUiData) -> Unit,
-    private val onDeleteClicked: (ExpenseUiData) -> Unit
-): BottomSheetDialogFragment()  {
+    private val onDeleteClicked: ((ExpenseUiData) -> Unit)? = null
+) : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,12 +34,34 @@ class CreateOrUpdateExpenseBottomSheet(
     ): View? {
         val view = inflater.inflate(R.layout.create_or_update_expense_bottom_sheet, container, false)
 
+        // Inicialize o RecyclerView e o Adapter
+        val recyclerViewIcons = view.findViewById<RecyclerView>(R.id.recyclerListIcons)
+        val icons = listOf(
+            R.drawable.ic_home,
+            R.drawable.baseline_wifi_24,
+            R.drawable.baseline_water_drop_24,
+            R.drawable.baseline_videogame_asset_24,
+            R.drawable.baseline_shopping_cart_24,
+            R.drawable.baseline_local_gas_station_24,
+            R.drawable.baseline_local_airport_24,
+            R.drawable.baseline_electric_bolt_24,
+            R.drawable.baseline_directions_car_24,
+            R.drawable.baseline_credit_card_24,
+            R.drawable.baseline_bar_chart_24
+        )
+        val listIconsAdapter = ListIconsAdapter(icons)
+        recyclerViewIcons.adapter = listIconsAdapter
+        recyclerViewIcons.layoutManager = GridLayoutManager(context, 5)
+
+        // Initialize the views
         val tvTitle = view.findViewById<TextView>(R.id.tv_expense_title)
-        val etExpenseName = view.findViewById<TextInputEditText>(R.id.et_expense_name)
+        val edtExpenseName = view.findViewById<TextInputEditText>(R.id.et_expense_name)
+        val edtExpenseAmount = view.findViewById<TextInputEditText>(R.id.et_expense_amount)
+        val edtExpenseDate = view.findViewById<TextInputEditText>(R.id.et_expense_date)
         val btnCreateOrUpdate = view.findViewById<Button>(R.id.btn_expense_create)
         val spinner: Spinner = view.findViewById(R.id.category_spinner)
 
-        var expenseCategory : String? = null
+        var expenseCategory: String? = null
         val categoryListTemp = mutableListOf("Select a category")
         categoryListTemp.addAll(categoryList.map { it.name })
 
@@ -58,6 +83,7 @@ class CreateOrUpdateExpenseBottomSheet(
             ) {
                 expenseCategory = categoryListTemp[position]
             }
+
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 showMessages("Category is required")
             }
@@ -69,7 +95,9 @@ class CreateOrUpdateExpenseBottomSheet(
         } else {
             tvTitle.setText(R.string.update_expense_title)
             btnCreateOrUpdate.setText(R.string.update)
-            etExpenseName.setText(expense.description)
+            edtExpenseName.setText(expense.description)
+            edtExpenseAmount.setText(expense.amount.toString())
+            edtExpenseDate.setText(expense.date)
 
             val currentCategory = categoryList.first { it.name == expense.category }
             val index = categoryList.indexOf(currentCategory)
@@ -77,31 +105,28 @@ class CreateOrUpdateExpenseBottomSheet(
         }
 
         btnCreateOrUpdate.setOnClickListener {
-            val description = etExpenseName.text.toString().trim()
+            val description = edtExpenseName.text.toString().trim()
             if (expenseCategory != "Select a category" && description.isNotEmpty()) {
-
                 if (expense == null) {
                     onCreateClicked.invoke(
                         ExpenseUiData(
                             id = 0,
-                            amount = 0.0,
+                            amount = edtExpenseAmount.text.toString().toDoubleOrNull() ?: 0.0,
                             category = requireNotNull(expenseCategory),
                             date = System.currentTimeMillis().toString(),
-                            description = description,
-
-                            )
+                            description = description
+                        )
                     )
                     dismiss()
                     showMessages("Expense created")
-
                 } else {
                     onUpdateClicked.invoke(
                         ExpenseUiData(
                             id = expense.id,
-                            amount = expense.amount,
+                            amount = edtExpenseAmount.text.toString().toDoubleOrNull() ?: expense.amount,
                             category = requireNotNull(expenseCategory),
                             date = expense.date,
-                            description = expense.description
+                            description = description
                         )
                     )
                     dismiss()
@@ -113,17 +138,26 @@ class CreateOrUpdateExpenseBottomSheet(
         }
 
         return view
-
     }
 
     override fun onStart() {
         super.onStart()
-        // Configura o BottomSheet para ficar expandido
 
-            dialog?.window?.setLayout(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT
-            )
+        // Certifique-se de que o layout da janela seja MATCH_PARENT
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
+
+        // Configure o BottomSheetBehavior para estar totalmente expandido
+        val bottomSheet = dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as? ViewGroup
+        val behavior = bottomSheet?.let { BottomSheetBehavior.from(it) }
+        if (behavior != null) {
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+        }
+        if (behavior != null) {
+            behavior.peekHeight = BottomSheetBehavior.PEEK_HEIGHT_AUTO
+        }
     }
 
     private fun showMessages(message: String) {

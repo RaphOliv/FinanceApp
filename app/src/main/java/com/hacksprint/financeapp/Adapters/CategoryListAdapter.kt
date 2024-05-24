@@ -1,4 +1,4 @@
-package com.hacksprint.financeapp.presentation
+package com.hacksprint.financeapp.Adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -33,6 +33,8 @@ class CategoryListAdapter :
         val category = getItem(position)
         holder.bind(category, onClick, onLongClick)
     }
+
+
 
     class CategoryViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         private val tvCategory = view.findViewById<TextView>(R.id.tv_category)
