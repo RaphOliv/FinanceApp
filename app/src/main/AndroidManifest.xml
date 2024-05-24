@@ -24,7 +24,7 @@
             </intent-filter>
 
         </activity>
-<activity android:name=".presentation.FinanceAppActivity"/>
+<!--<activity android:name=".presentation.FinanceAppActivity"/>-->
 <activity android:name=".presentation.MainActivity"/>
 
 

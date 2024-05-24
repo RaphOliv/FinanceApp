@@ -124,8 +124,7 @@ class CreateOrUpdateExpenseBottomSheet(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-        }
-
+    }
 
     private fun showMessages(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()

@@ -96,7 +96,7 @@
             android:background="@drawable/add_shape_list"
             android:backgroundTint="@color/blue"
             android:hint="Expense Name: e.g. Rent."
-            android:inputType="numberDecimal"
+            android:inputType="text"
             android:textColor="@color/black"
             android:textSize="13dp" />
 
@@ -127,8 +127,6 @@
             android:clickable="true"
             android:focusable="false"
             android:hint="Date"
-            android:inputType="none"
-            android:maxLength="2"
             android:textColor="@color/black"
             android:textSize="13dp" />
     </com.google.android.material.textfield.TextInputLayout>
