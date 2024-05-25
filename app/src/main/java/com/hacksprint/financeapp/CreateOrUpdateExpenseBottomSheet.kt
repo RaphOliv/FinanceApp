@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -25,11 +24,14 @@ import java.util.Calendar
 
 class CreateOrUpdateExpenseBottomSheet(
     private val categoryList: List<CategoryEntity>,
+    private val expenseList: MutableList<ExpenseUiData>?, // Referência à lista de despesas
     private val expense: ExpenseUiData? = null,
     private val onCreateClicked: (ExpenseUiData) -> Unit,
     private val onUpdateClicked: (ExpenseUiData) -> Unit,
     private val onDeleteClicked: ((ExpenseUiData) -> Unit)? = null
 ) : BottomSheetDialogFragment(), ListIconsAdapter.IconClickListener {
+
+    private var selectedIconResId: Int = R.drawable.ic_home // Ícone padrão selecionado
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -127,6 +129,7 @@ class CreateOrUpdateExpenseBottomSheet(
             val amount = edtExpenseAmount.text.toString()
             val date = edtExpenseDate.text.toString()
             val category = expenseCategory
+            val iconResId = selectedIconResId // Adicione esta linha para obter o ID do ícone selecionado
 
             if (name.isEmpty() || amount.isEmpty() || date.isEmpty() || category == null ) {
                 showMessages("All fields are required")
@@ -138,7 +141,8 @@ class CreateOrUpdateExpenseBottomSheet(
                 description = name,
                 amount = amount.toDouble(),
                 date = date,
-                category = category
+                category = category,
+                iconResId = iconResId // Passe o ID do ícone selecionado para ExpenseUiData
             )
 
             if (expense == null) {
@@ -147,10 +151,26 @@ class CreateOrUpdateExpenseBottomSheet(
                 onUpdateClicked(expenseData)
             }
 
+            // Atualizar a lista de despesas
+            if (expense == null) {
+                // Se é uma nova despesa, adicione à lista
+                expenseList?.add(expenseData)
+            } else {
+                // Se é uma atualização, encontre e substitua na lista
+                val index = expenseList?.indexOfFirst { it.id == expenseData.id }
+                if (index != -1) {
+                    if (index != null) {
+                        expenseList?.set(index, expenseData)
+                    }
+                }
+            }
 
+            // Atualizar a lista de despesas no adaptador
+            (recyclerViewIcons.adapter as? ExpenseListAdapter)?.submitList(expenseList?.toList())
 
             dismiss()
         }
+
 
         return view
     }
@@ -179,7 +199,6 @@ class CreateOrUpdateExpenseBottomSheet(
     }
 
     override fun onIconClicked(iconResId: Int) {
-        view?.findViewById<ImageView>(R.id.iv_category)?.setImageResource(iconResId)
-
+        selectedIconResId = iconResId // Atualiza o ícone selecionado
     }
 }

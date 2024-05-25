@@ -6,5 +6,8 @@ data class ExpenseUiData(
     val description: String,
     val amount: Double,
     val category: String,
+    val iconResId: Int,
     val date: String
-)
+) {
+
+}

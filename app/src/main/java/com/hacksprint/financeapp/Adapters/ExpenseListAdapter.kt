@@ -3,6 +3,7 @@ package com.hacksprint.financeapp.Adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -15,7 +16,7 @@ class ExpenseListAdapter(private val onClick: (ExpenseUiData) -> Unit) : ListAda
     diffCallback()
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder {
+            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExpenseViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.card_recycler_list, parent, false)
         return ExpenseViewHolder(view)
     }
@@ -34,12 +35,14 @@ class ExpenseListAdapter(private val onClick: (ExpenseUiData) -> Unit) : ListAda
         private val tvExpenseName: TextView = view.findViewById(R.id.tv_expense_name)
         private val tvValueAmount: TextView = view.findViewById(R.id.tv_value_amount)
         private val tvValueDate: TextView = view.findViewById(R.id.tv_value_date)
+        private val ivIcon: ImageView = view.findViewById(R.id.iv_category)
 
         fun bind(expense: ExpenseUiData, onClick: (ExpenseUiData) -> Unit) {
             tvCategoryName.text = expense.category
             tvExpenseName.text = expense.description
             tvValueAmount.text = expense.amount.toString()
             tvValueDate.text = formatDate(expense.date)
+            ivIcon.setImageResource(expense.iconResId) // Define o ícone na ImageView
 
             view.setOnClickListener {
                 onClick.invoke(expense)
