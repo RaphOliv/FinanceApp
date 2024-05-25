@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "categories")
 data class CategoryEntity(
     @PrimaryKey
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "Key")
     val name: String,
     @ColumnInfo(name = "is_selected")
     val isSelected: Boolean

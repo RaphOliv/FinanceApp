@@ -9,23 +9,23 @@ import androidx.room.Update
 interface ExpenseDao {
 
     @Query("SELECT * FROM expenses")
-    fun getAll(): List<ExpenseEntity>
+    suspend fun getAll(): List<ExpenseEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll(expenseEntity: List<ExpenseEntity>)
+    suspend fun insertAll(expenseEntity: List<ExpenseEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(expenseEntity: ExpenseEntity)
+    suspend fun insert(expenseEntity: ExpenseEntity)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun update(expenseEntity: ExpenseEntity)
+    suspend fun update(expenseEntity: ExpenseEntity)
 
     @Delete
-    fun delete(expenseEntity: ExpenseEntity)
+    suspend fun delete(expenseEntity: ExpenseEntity)
 
     @Query("SELECT * FROM expenses WHERE category = :categoryName")
-    fun getAllByCategoryName(categoryName: String): List<ExpenseEntity>
+    suspend fun getAllByCategoryName(categoryName: String): List<ExpenseEntity>
 
     @Query("DELETE FROM expenses WHERE category = :categoryName")
-    fun deleteAllByCategory(categoryName: String)
+    suspend fun deleteAllByCategory(categoryName: String)
 }
