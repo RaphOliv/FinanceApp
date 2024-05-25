@@ -10,15 +10,15 @@ import com.hacksprint.financeapp.data.CategoryEntity
 @Dao
 interface CategoryDao {
     @Query("SELECT * FROM categories")
-    fun getAll(): List<CategoryEntity>
+    suspend fun getAll(): List<CategoryEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(categoryEntity: CategoryEntity)
+    suspend fun insert(categoryEntity: CategoryEntity)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun update(categoryEntity: CategoryEntity)
+    suspend fun update(categoryEntity: CategoryEntity)
 
     @Delete
-    fun delete(categoryEntity: CategoryEntity)
+    suspend fun delete(categoryEntity: CategoryEntity)
 }
 
