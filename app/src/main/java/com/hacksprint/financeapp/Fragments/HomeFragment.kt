@@ -8,7 +8,9 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.hacksprint.financeapp.Adapters.ExpenseListAdapter
+import com.hacksprint.financeapp.CreateOrUpdateExpenseBottomSheet
 import com.hacksprint.financeapp.R
+import com.hacksprint.financeapp.data.CategoryEntity
 
 class HomeFragment : Fragment() {
 
@@ -28,24 +30,23 @@ class HomeFragment : Fragment() {
             Toast.makeText(requireContext(), "Expense clicked", Toast.LENGTH_SHORT).show()
         }
 
-        val bottomSheetImageView = view.findViewById<ImageView>(R.id.shapeableImageView2)
+        val bottomSheetImageView = view.findViewById<ImageView>(R.id.btn_show_dielog)
         bottomSheetImageView.setOnClickListener {
-            /*val categoryList = listOf<CategoryEntity>()
+            val categoryList = listOf<CategoryEntity>()
             val bottomSheetDialog = CreateOrUpdateExpenseBottomSheet(
-                viewModel,
-                expenseListAdapter,
+
                 categoryList,
-                onCreateClicked = { *//*expense ->*//*
+                onCreateClicked = { //*expense ->*//*
                     // Lógica para criar uma nova despesa
                 },
-                onUpdateClicked = { *//*expense ->*//*
+                onUpdateClicked = { //*expense ->*//*
                     // Lógica para atualizar uma despesa existente
                 },
-                onDeleteClicked = { *//*expense ->*//*
+                onDeleteClicked = { //*expense ->*//*
                     // Lógica para excluir uma despesa existente
                 }
             )
-            bottomSheetDialog.show(childFragmentManager, bottomSheetDialog.tag)*/
+            bottomSheetDialog.show(childFragmentManager, bottomSheetDialog.tag)
         }
 
         return view

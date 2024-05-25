@@ -12,8 +12,8 @@ import com.hacksprint.financeapp.R
 class CategoryListAdapter :
     ListAdapter<CategoryUiData, CategoryListAdapter.CategoryViewHolder>(diffCallback())  {
 
-    private lateinit var onClick: (CategoryUiData) -> Unit
-    private lateinit var onLongClick: (CategoryUiData) -> Unit
+    private var onClick: (CategoryUiData) -> Unit = {}
+    private var onLongClick: (CategoryUiData) -> Unit = {}
 
     fun setOnClickListener(onClick: (CategoryUiData) -> Unit) {
         this.onClick = onClick
@@ -22,6 +22,7 @@ class CategoryListAdapter :
     fun setOnLongClickListener(onLongClick: (CategoryUiData) -> Unit) {
         this.onLongClick = onLongClick
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val view =

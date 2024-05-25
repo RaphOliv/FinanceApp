@@ -1,16 +1,14 @@
-
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.hacksprint.financeapp.data.ExpenseEntity
 
 @Dao
 interface ExpenseDao {
 
-    @Query("SELECT * FROM expenseentity")
+    @Query("SELECT * FROM expenses")
     fun getAll(): List<ExpenseEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -25,9 +23,9 @@ interface ExpenseDao {
     @Delete
     fun delete(expenseEntity: ExpenseEntity)
 
-    @Query("Select * FROM expenseentity where category is :categoryName" )
+    @Query("SELECT * FROM expenses WHERE category = :categoryName")
     fun getAllByCategoryName(categoryName: String): List<ExpenseEntity>
 
-    @Delete
-    fun deleteAll(expenseEntity: List<ExpenseEntity>)
+    @Query("DELETE FROM expenses WHERE category = :categoryName")
+    fun deleteAllByCategory(categoryName: String)
 }

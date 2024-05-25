@@ -1,5 +1,6 @@
 package com.hacksprint.financeapp
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
@@ -15,9 +17,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
+import com.hacksprint.financeapp.Adapters.ExpenseListAdapter
 import com.hacksprint.financeapp.Adapters.ListIconsAdapter
 import com.hacksprint.financeapp.data.CategoryEntity
 import com.hacksprint.financeapp.Adapters.ExpenseUiData
+import java.util.Calendar
 
 class CreateOrUpdateExpenseBottomSheet(
     private val categoryList: List<CategoryEntity>,
@@ -25,7 +29,7 @@ class CreateOrUpdateExpenseBottomSheet(
     private val onCreateClicked: (ExpenseUiData) -> Unit,
     private val onUpdateClicked: (ExpenseUiData) -> Unit,
     private val onDeleteClicked: ((ExpenseUiData) -> Unit)? = null
-) : BottomSheetDialogFragment() {
+) : BottomSheetDialogFragment(), ListIconsAdapter.IconClickListener {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +38,7 @@ class CreateOrUpdateExpenseBottomSheet(
     ): View? {
         val view = inflater.inflate(R.layout.create_or_update_expense_bottom_sheet, container, false)
 
-        // Inicialize o RecyclerView e o Adapter
+        // Initialize RecyclerView and Adapter
         val recyclerViewIcons = view.findViewById<RecyclerView>(R.id.recyclerListIcons)
         val icons = listOf(
             R.drawable.ic_home,
@@ -49,11 +53,11 @@ class CreateOrUpdateExpenseBottomSheet(
             R.drawable.baseline_credit_card_24,
             R.drawable.baseline_bar_chart_24
         )
-        val listIconsAdapter = ListIconsAdapter(icons)
+        val listIconsAdapter = ListIconsAdapter(icons, this) // Passa esta classe como ouvinte de clique de ícone
         recyclerViewIcons.adapter = listIconsAdapter
         recyclerViewIcons.layoutManager = GridLayoutManager(context, 5)
 
-        // Initialize the views
+        // Initialize views
         val tvTitle = view.findViewById<TextView>(R.id.tv_expense_title)
         val edtExpenseName = view.findViewById<TextInputEditText>(R.id.et_expense_name)
         val edtExpenseAmount = view.findViewById<TextInputEditText>(R.id.et_expense_amount)
@@ -64,6 +68,19 @@ class CreateOrUpdateExpenseBottomSheet(
         var expenseCategory: String? = null
         val categoryListTemp = mutableListOf("Select a category")
 
+        edtExpenseDate.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+            val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
+                val formattedDate = String.format("%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear)
+                edtExpenseDate.setText(formattedDate)
+            }, year, month, day)
+
+            datePickerDialog.show()
+        }
 
         ArrayAdapter(
             requireActivity().baseContext,
@@ -109,33 +126,28 @@ class CreateOrUpdateExpenseBottomSheet(
             val name = edtExpenseName.text.toString()
             val amount = edtExpenseAmount.text.toString()
             val date = edtExpenseDate.text.toString()
+            val category = expenseCategory
 
-            if (name.isEmpty() || amount.isEmpty() || date.isEmpty() || expenseCategory == null) {
+            if (name.isEmpty() || amount.isEmpty() || date.isEmpty() || category == null ) {
                 showMessages("All fields are required")
                 return@setOnClickListener
             }
 
+            val expenseData = ExpenseUiData(
+                id = expense?.id ?: 0,
+                description = name,
+                amount = amount.toDouble(),
+                date = date,
+                category = category
+            )
+
             if (expense == null) {
-                onCreateClicked.invoke(
-                    ExpenseUiData(
-                        id = 0,
-                        description = name,
-                        amount = amount.toDouble(),
-                        date = date,
-                        category = expenseCategory!!
-                    )
-                )
+                onCreateClicked.invoke(expenseData)
             } else {
-                onUpdateClicked(
-                    ExpenseUiData(
-                        id = expense.id,
-                        description = name,
-                        amount = amount.toDouble(),
-                        date = date,
-                        category = expenseCategory!!
-                    )
-                )
+                onUpdateClicked(expenseData)
             }
+
+
 
             dismiss()
         }
@@ -146,13 +158,12 @@ class CreateOrUpdateExpenseBottomSheet(
     override fun onStart() {
         super.onStart()
 
-        // Certifique-se de que o layout da janela seja MATCH_PARENT
         dialog?.window?.setLayout(
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
 
-        // Configure o BottomSheetBehavior para estar totalmente expandido
+        // Configure BottomSheetBehavior to be fully expanded
         val bottomSheet = dialog?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as? ViewGroup
         val behavior = bottomSheet?.let { BottomSheetBehavior.from(it) }
         if (behavior != null) {
@@ -165,5 +176,10 @@ class CreateOrUpdateExpenseBottomSheet(
 
     private fun showMessages(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onIconClicked(iconResId: Int) {
+        view?.findViewById<ImageView>(R.id.iv_category)?.setImageResource(iconResId)
+
     }
 }

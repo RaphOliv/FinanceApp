@@ -9,7 +9,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.hacksprint.financeapp.R
-import com.hacksprint.financeapp.presentation.MainActivity
+import com.hacksprint.financeapp.MainActivity
 
 class Presentation: AppCompatActivity() {
     private lateinit var indicator: LinearLayout

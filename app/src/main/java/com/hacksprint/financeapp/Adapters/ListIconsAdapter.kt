@@ -7,36 +7,55 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.hacksprint.financeapp.R
 
-class ListIconsAdapter(private val icons:List<Int>): RecyclerView.Adapter<ListIconsAdapter.IconViewholder>(){
-    private var selectPosition: Int = -1
+class ListIconsAdapter(
+    private val icons: List<Int>,
+    private val iconClickListener: IconClickListener
+) : RecyclerView.Adapter<ListIconsAdapter.IconViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IconViewholder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.icon_selection_style,parent,false)
-        return IconViewholder(view)
+    private var selectedIconPosition: Int = -1 // Índice do ícone selecionado
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): IconViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.icon_selection_style, parent, false)
+        return IconViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: IconViewholder, position: Int) {
-        holder.icon_list.setImageResource(icons[position])
+    override fun onBindViewHolder(holder: IconViewHolder, position: Int) {
+        val icon = icons[position]
+        holder.iconImageView.setImageResource(icon)
 
-        holder.circle_select.visibility = if(position == selectPosition)
-            View.VISIBLE else View.GONE
+        // Define a visibilidade do círculo de seleção com base no ícone selecionado
+        holder.selectionCircle.visibility = if (holder.adapterPosition == selectedIconPosition) View.VISIBLE else View.GONE
 
-        holder.itemView.setOnClickListener{
-            val previewSlect = selectPosition
-            selectPosition = position
-            notifyItemChanged(previewSlect)
-            notifyItemChanged(selectPosition)
+        // Define um clique ouvinte para os ícones
+        holder.itemView.setOnClickListener {
+            val previousSelectedPosition = selectedIconPosition
+            selectedIconPosition = holder.adapterPosition
+            notifyItemChanged(previousSelectedPosition)
+            notifyItemChanged(selectedIconPosition)
+
+            // Notifica o ouvinte de clique do ícone
+            iconClickListener.onIconClicked(icon)
         }
     }
 
-    override fun getItemCount(): Int = icons.size
-
-
-   inner class IconViewholder(itemView: View):
-           RecyclerView.ViewHolder(itemView){
-               val icon_list: ImageView = itemView.findViewById(R.id.icon_list)
-       val circle_select: View = itemView.findViewById(R.id.circle_select)
-
+    override fun getItemCount(): Int {
+        return icons.size
     }
 
+    // Define um método para atualizar o ícone selecionado externamente
+    fun setSelectedIconPosition(position: Int) {
+        selectedIconPosition = position
+        notifyDataSetChanged()
+    }
+
+    // Classe ViewHolder para os ícones
+    inner class IconViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val iconImageView: ImageView = itemView.findViewById(R.id.icon_list)
+        val selectionCircle: View = itemView.findViewById(R.id.circle_select)
+    }
+
+    // Interface para lidar com eventos de clique nos ícones
+    interface IconClickListener {
+        fun onIconClicked(iconResId: Int)
+    }
 }

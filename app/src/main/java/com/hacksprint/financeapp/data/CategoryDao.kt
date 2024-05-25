@@ -9,7 +9,7 @@ import com.hacksprint.financeapp.data.CategoryEntity
 
 @Dao
 interface CategoryDao {
-    @Query("SELECT * FROM categoryentity")
+    @Query("SELECT * FROM categories")
     fun getAll(): List<CategoryEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

@@ -1,20 +1,10 @@
 package com.hacksprint.financeapp
 
-import ExpenseDao
-import FinanceAppDataBase
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.hacksprint.financeapp.Adapters.ExpenseListAdapter
-import com.hacksprint.financeapp.data.CategoryEntity
-import com.hacksprint.financeapp.data.ExpenseEntity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment() {
 
@@ -33,7 +23,7 @@ class ProfileFragment : Fragment() {
     /*// Inicialize o ViewModel e o Adapter, se necessário
     viewModel = FinanceAppViewModel.create(requireActivity().application)
 
-    expenseListAdapter = ExpenseListAdapter { expense ->
+    expenseListAdapter = com.hacksprint.financeapp.Adapters.ExpenseListAdapter { expense ->
 
 
         Toast.makeText(requireContext(), "Expense clicked: ${expense.description}", Toast.LENGTH_SHORT).show()
@@ -43,7 +33,7 @@ class ProfileFragment : Fragment() {
     val bottomSheetImageView = view.findViewById<ImageView>(R.id.btn_show_dielog)
     bottomSheetImageView.setOnClickListener {
         val categoryList = listOf<CategoryEntity>()
-        val bottomSheetDialog = CreateOrUpdateExpenseBottomSheet(
+        val bottomSheetDialog = com.hacksprint.financeapp.CreateOrUpdateExpenseBottomSheet(
             viewModel,
             expenseListAdapter,
             categoryList,
@@ -67,7 +57,7 @@ class ProfileFragment : Fragment() {
     private lateinit var onDeleteClicked: (ExpenseUiData) -> Unit
 
     private val expenseAdapter by lazy {
-        ExpenseListAdapter()
+        com.hacksprint.financeapp.Adapters.ExpenseListAdapter()
     }
 
     lateinit var db: FinanceAppDataBase
@@ -113,7 +103,7 @@ class ProfileFragment : Fragment() {
 
 
     private fun showCreateUpdateExpenseBottomSheet(expenseUiData: ExpenseUiData? = null) {
-        val createExpenseBottomSheet = CreateOrUpdateExpenseBottomSheet(
+        val createExpenseBottomSheet = com.hacksprint.financeapp.CreateOrUpdateExpenseBottomSheet(
             expense = expenseUiData,
             categoryList = categoriesEntity,
             onCreateClicked = {

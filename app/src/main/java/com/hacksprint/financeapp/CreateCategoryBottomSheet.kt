@@ -1,3 +1,4 @@
+// CreateCategoryBottomSheet.kt
 package com.hacksprint.financeapp
 
 import android.os.Bundle
@@ -8,43 +9,35 @@ import android.widget.Button
 import android.widget.Toast
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.google.android.material.textfield.TextInputEditText
-import com.hacksprint.financeapp.R.layout
-
 
 class CreateCategoryBottomSheet(
-    private val onCreateClicked: (String) -> Unit) :
-    BottomSheetDialogFragment() {
+    private val onCreateClicked: (String) -> Unit
+) : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(layout.create_category_bottom_sheet, container, false)
+        val view = inflater.inflate(R.layout.create_category_bottom_sheet, container, false)
 
         val btnCreateCategory = view.findViewById<Button>(R.id.btn_category_create)
         val etCategoryName = view.findViewById<TextInputEditText>(R.id.et_category_name)
 
         btnCreateCategory.setOnClickListener {
-
             if(etCategoryName.text?.isNotEmpty() == false) {
                 showMessages("Category is required")
-
             } else {
-
-                val name = etCategoryName.text.toString().trim()
-                onCreateClicked(name)
+                val categoryName = etCategoryName.text.toString()
+                onCreateClicked(categoryName)
                 dismiss()
             }
-
         }
 
         return view
-
     }
+
     private fun showMessages(message: String) {
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
-
-
 }
